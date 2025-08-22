@@ -13,7 +13,7 @@ contract FeeSplitter {
 
     event Split(uint256 gross, uint256 toMerchant, uint256 toPlatform, uint256 toReserve);
 
-    constructor(TRC20 _usdt, address _platform, address _reserve) {
+    constructor(TRC20 _usdt, address _platform, address _reserve) public {
         owner = msg.sender;
         usdt = _usdt; platform = _platform; reserve = _reserve;
         platformBps = 60; reserveBps = 20;
