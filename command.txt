@@ -1,0 +1,6 @@
+
+tronbox init
+
+sudo npm install tronweb@3.2.7
+
+sudo npm install dotenv --save
