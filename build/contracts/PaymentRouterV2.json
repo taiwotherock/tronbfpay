@@ -1,5 +1,5 @@
 {
-  "contractName": "PaymentRouter",
+  "contractName": "PaymentRouterV2",
   "abi": [
     {
       "constant": false,
@@ -71,24 +71,24 @@
       "type": "constructor"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b506040516020806104378339810180604052602081101561004a57600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061038c806100ab6000396000f3fe608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b5060043610610078576000357c010000000000000000000000000000000000000000000000000000000090048063674a852b1461007d5780637aa1ed58146100e9578063fbfa77cf14610117575b600080fd5b6100e7600480360360a081101561009357600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291908035906020019092919080359060200190929190505050610161565b005b610115600480360360208110156100ff57600080fd5b8101908080359060200190929190505050610290565b005b61011f61033b565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16631d74e01e8633878787876040518763ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808781526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018481526020018381526020018281526020019650505050505050600060405180830381600087803b15801561027157600080fd5b505af1158015610285573d6000803e3d6000fd5b505050505050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166367d42a8b826040518263ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180828152602001915050600060405180830381600087803b15801561032057600080fd5b505af1158015610334573d6000803e3d6000fd5b5050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea165627a7a723058202fbc70498a4bc72fcaed74effd964f11023b03021d58b26902d50e5a135d7f670029",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b5060043610610078576000357c010000000000000000000000000000000000000000000000000000000090048063674a852b1461007d5780637aa1ed58146100e9578063fbfa77cf14610117575b600080fd5b6100e7600480360360a081101561009357600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291908035906020019092919080359060200190929190505050610161565b005b610115600480360360208110156100ff57600080fd5b8101908080359060200190929190505050610290565b005b61011f61033b565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16631d74e01e8633878787876040518763ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808781526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018481526020018381526020018281526020019650505050505050600060405180830381600087803b15801561027157600080fd5b505af1158015610285573d6000803e3d6000fd5b505050505050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166367d42a8b826040518263ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180828152602001915050600060405180830381600087803b15801561032057600080fd5b505af1158015610334573d6000803e3d6000fd5b5050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea165627a7a723058202fbc70498a4bc72fcaed74effd964f11023b03021d58b26902d50e5a135d7f670029",
-  "sourceMap": "58:506:1:-;;;122:83;8:9:-1;5:2;;;30:1;27;20:12;5:2;122:83:1;;8:9:-1;5:2;;;30:1;27;20:12;5:2;122:83:1;;8:9:-1;5:2;;;30:1;27;20:12;5:2;122:83:1;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;122:83:1;;;;;;;;;;;;;;;;191:6;167:5;;:31;;;;;;;;;;;;;;;;;;122:83;58:506;;;;;;",
-  "deployedSourceMap": "58:506:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;58:506:1;;8:9:-1;5:2;;;30:1;27;20:12;5:2;58:506:1;;8:9:-1;5:2;;;30:1;27;20:12;5:2;58:506:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;211:258;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;211:258:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;475:87;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;475:87:1;;;;;;;;;;;;;;;;;:::i;:::-;;87:28;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;211:258;394:5;;;;;;;;;;;:10;;;405:7;414:10;426:8;436:6;444;452:9;394:68;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;394:68:1;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;394:68:1;;;;211:258;;;;;:::o;475:87::-;533:5;;;;;;;;;;;:13;;;547:7;533:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;533:22:1;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;533:22:1;;;;475:87;:::o;87:28::-;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity ^0.5.4;\n\nimport \"./BPayEscrowVault.sol\";\n\ncontract PaymentRouter {\n    BPayEscrowVault public vault;\n\n    constructor(address _vault) public {\n        vault = BPayEscrowVault(_vault);\n    }\n\n    function routePayment(\n        bytes32 orderId,\n        address splitter,\n        uint256 amount,\n        uint256 expiry,\n        bytes32 attestRef\n    )\n        public\n    {\n        vault.fund(orderId, msg.sender, splitter, amount, expiry, attestRef);\n    }\n\n    function releasePayment(bytes32 orderId) public {\n        vault.release(orderId);\n    }\n}\n",
-  "sourcePath": "/Users/taiwo/workspace/tronbfpay/contracts/PaymentRouter.sol",
+  "bytecode": "0x608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b506040516020806104378339810180604052602081101561004a57600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061038c806100ab6000396000f3fe608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b5060043610610078576000357c010000000000000000000000000000000000000000000000000000000090048063674a852b1461007d5780637aa1ed58146100e9578063fbfa77cf14610117575b600080fd5b6100e7600480360360a081101561009357600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291908035906020019092919080359060200190929190505050610161565b005b610115600480360360208110156100ff57600080fd5b8101908080359060200190929190505050610290565b005b61011f61033b565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16631d74e01e8633878787876040518763ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808781526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018481526020018381526020018281526020019650505050505050600060405180830381600087803b15801561027157600080fd5b505af1158015610285573d6000803e3d6000fd5b505050505050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166367d42a8b826040518263ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180828152602001915050600060405180830381600087803b15801561032057600080fd5b505af1158015610334573d6000803e3d6000fd5b5050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea165627a7a723058208794d34480a07322371e7e2cd5486e89513f95e6b54e91b3a4743f3f27b1c6880029",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b5060043610610078576000357c010000000000000000000000000000000000000000000000000000000090048063674a852b1461007d5780637aa1ed58146100e9578063fbfa77cf14610117575b600080fd5b6100e7600480360360a081101561009357600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291908035906020019092919080359060200190929190505050610161565b005b610115600480360360208110156100ff57600080fd5b8101908080359060200190929190505050610290565b005b61011f61033b565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16631d74e01e8633878787876040518763ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808781526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018481526020018381526020018281526020019650505050505050600060405180830381600087803b15801561027157600080fd5b505af1158015610285573d6000803e3d6000fd5b505050505050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166367d42a8b826040518263ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180828152602001915050600060405180830381600087803b15801561032057600080fd5b505af1158015610334573d6000803e3d6000fd5b5050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea165627a7a723058208794d34480a07322371e7e2cd5486e89513f95e6b54e91b3a4743f3f27b1c6880029",
+  "sourceMap": "64:512:2:-;;;132:85;8:9:-1;5:2;;;30:1;27;20:12;5:2;132:85:2;;8:9:-1;5:2;;;30:1;27;20:12;5:2;132:85:2;;8:9:-1;5:2;;;30:1;27;20:12;5:2;132:85:2;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;132:85:2;;;;;;;;;;;;;;;;203:6;177:5;;:33;;;;;;;;;;;;;;;;;;132:85;64:512;;;;;;",
+  "deployedSourceMap": "64:512:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;64:512:2;;8:9:-1;5:2;;;30:1;27;20:12;5:2;64:512:2;;8:9:-1;5:2;;;30:1;27;20:12;5:2;64:512:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;223:258;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;223:258:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;487:87;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;487:87:2;;;;;;;;;;;;;;;;;:::i;:::-;;95:30;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;223:258;406:5;;;;;;;;;;;:10;;;417:7;426:10;438:8;448:6;456;464:9;406:68;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;406:68:2;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;406:68:2;;;;223:258;;;;;:::o;487:87::-;545:5;;;;;;;;;;;:13;;;559:7;545:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;545:22:2;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;545:22:2;;;;487:87;:::o;95:30::-;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.5.4;\n\nimport \"../v2/BPayEscrowVaultV2.sol\";\n\ncontract PaymentRouterV2 {\n    BPayEscrowVaultV2 public vault;\n\n    constructor(address _vault) public {\n        vault = BPayEscrowVaultV2(_vault);\n    }\n\n    function routePayment(\n        bytes32 orderId,\n        address splitter,\n        uint256 amount,\n        uint256 expiry,\n        bytes32 attestRef\n    )\n        public\n    {\n        vault.fund(orderId, msg.sender, splitter, amount, expiry, attestRef);\n    }\n\n    function releasePayment(bytes32 orderId) public {\n        vault.release(orderId);\n    }\n}\n",
+  "sourcePath": "/Users/taiwo/workspace/tronbfpay/contracts/v2/PaymentRouterV2.sol",
   "ast": {
-    "absolutePath": "/Users/taiwo/workspace/tronbfpay/contracts/PaymentRouter.sol",
+    "absolutePath": "/Users/taiwo/workspace/tronbfpay/contracts/v2/PaymentRouterV2.sol",
     "exportedSymbols": {
-      "PaymentRouter": [
-        202
+      "PaymentRouterV2": [
+        271
       ]
     },
-    "id": 203,
+    "id": 272,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 148,
+        "id": 217,
         "literals": [
           "solidity",
           "^",
@@ -96,16 +96,16 @@
           ".4"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:1"
+        "src": "0:23:2"
       },
       {
-        "absolutePath": "/Users/taiwo/workspace/tronbfpay/contracts/BPayEscrowVault.sol",
-        "file": "./BPayEscrowVault.sol",
-        "id": 149,
+        "absolutePath": "/Users/taiwo/workspace/tronbfpay/contracts/v2/BPayEscrowVaultV2.sol",
+        "file": "../v2/BPayEscrowVaultV2.sol",
+        "id": 218,
         "nodeType": "ImportDirective",
-        "scope": 203,
-        "sourceUnit": 147,
-        "src": "25:31:1",
+        "scope": 272,
+        "sourceUnit": 216,
+        "src": "25:37:2",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -115,36 +115,36 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 202,
+        "id": 271,
         "linearizedBaseContracts": [
-          202
+          271
         ],
-        "name": "PaymentRouter",
+        "name": "PaymentRouterV2",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 151,
+            "id": 220,
             "name": "vault",
             "nodeType": "VariableDeclaration",
-            "scope": 202,
-            "src": "87:28:1",
+            "scope": 271,
+            "src": "95:30:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-              "typeString": "contract BPayEscrowVault"
+              "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+              "typeString": "contract BPayEscrowVaultV2"
             },
             "typeName": {
               "contractScope": null,
-              "id": 150,
-              "name": "BPayEscrowVault",
+              "id": 219,
+              "name": "BPayEscrowVaultV2",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 146,
-              "src": "87:15:1",
+              "referencedDeclaration": 215,
+              "src": "95:17:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                "typeString": "contract BPayEscrowVault"
+                "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                "typeString": "contract BPayEscrowVaultV2"
               }
             },
             "value": null,
@@ -152,29 +152,29 @@
           },
           {
             "body": {
-              "id": 162,
+              "id": 231,
               "nodeType": "Block",
-              "src": "157:48:1",
+              "src": "167:50:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 160,
+                    "id": 229,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 156,
+                      "id": 225,
                       "name": "vault",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 151,
-                      "src": "167:5:1",
+                      "referencedDeclaration": 220,
+                      "src": "177:5:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                        "typeString": "contract BPayEscrowVault"
+                        "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                        "typeString": "contract BPayEscrowVaultV2"
                       }
                     },
                     "nodeType": "Assignment",
@@ -184,12 +184,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 158,
+                          "id": 227,
                           "name": "_vault",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 153,
-                          "src": "191:6:1",
+                          "referencedDeclaration": 222,
+                          "src": "203:6:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -203,18 +203,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 157,
-                        "name": "BPayEscrowVault",
+                        "id": 226,
+                        "name": "BPayEscrowVaultV2",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 146,
-                        "src": "175:15:1",
+                        "referencedDeclaration": 215,
+                        "src": "185:17:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_BPayEscrowVault_$146_$",
-                          "typeString": "type(contract BPayEscrowVault)"
+                          "typeIdentifier": "t_type$_t_contract$_BPayEscrowVaultV2_$215_$",
+                          "typeString": "type(contract BPayEscrowVaultV2)"
                         }
                       },
-                      "id": 159,
+                      "id": 228,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -222,42 +222,42 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "175:23:1",
+                      "src": "185:25:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                        "typeString": "contract BPayEscrowVault"
+                        "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                        "typeString": "contract BPayEscrowVaultV2"
                       }
                     },
-                    "src": "167:31:1",
+                    "src": "177:33:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                      "typeString": "contract BPayEscrowVault"
+                      "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                      "typeString": "contract BPayEscrowVaultV2"
                     }
                   },
-                  "id": 161,
+                  "id": 230,
                   "nodeType": "ExpressionStatement",
-                  "src": "167:31:1"
+                  "src": "177:33:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 163,
+            "id": 232,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 154,
+              "id": 223,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 153,
+                  "id": 222,
                   "name": "_vault",
                   "nodeType": "VariableDeclaration",
-                  "scope": 163,
-                  "src": "134:14:1",
+                  "scope": 232,
+                  "src": "144:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -265,10 +265,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 152,
+                    "id": 221,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "134:7:1",
+                    "src": "144:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -279,25 +279,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "133:16:1"
+              "src": "143:16:2"
             },
             "returnParameters": {
-              "id": 155,
+              "id": 224,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "157:0:1"
+              "src": "167:0:2"
             },
-            "scope": 202,
-            "src": "122:83:1",
+            "scope": 271,
+            "src": "132:85:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 188,
+              "id": 257,
               "nodeType": "Block",
-              "src": "384:85:1",
+              "src": "396:85:2",
               "statements": [
                 {
                   "expression": {
@@ -305,12 +305,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 179,
+                        "id": 248,
                         "name": "orderId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 165,
-                        "src": "405:7:1",
+                        "referencedDeclaration": 234,
+                        "src": "417:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -320,18 +320,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 180,
+                          "id": 249,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 286,
-                          "src": "414:3:1",
+                          "src": "426:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 181,
+                        "id": 250,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -339,7 +339,7 @@
                         "memberName": "sender",
                         "nodeType": "MemberAccess",
                         "referencedDeclaration": null,
-                        "src": "414:10:1",
+                        "src": "426:10:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
@@ -347,12 +347,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 182,
+                        "id": 251,
                         "name": "splitter",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 167,
-                        "src": "426:8:1",
+                        "referencedDeclaration": 236,
+                        "src": "438:8:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -360,12 +360,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 183,
+                        "id": 252,
                         "name": "amount",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 169,
-                        "src": "436:6:1",
+                        "referencedDeclaration": 238,
+                        "src": "448:6:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -373,12 +373,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 184,
+                        "id": 253,
                         "name": "expiry",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 171,
-                        "src": "444:6:1",
+                        "referencedDeclaration": 240,
+                        "src": "456:6:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -386,12 +386,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 185,
+                        "id": 254,
                         "name": "attestRef",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 173,
-                        "src": "452:9:1",
+                        "referencedDeclaration": 242,
+                        "src": "464:9:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -427,32 +427,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 176,
+                        "id": 245,
                         "name": "vault",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 151,
-                        "src": "394:5:1",
+                        "referencedDeclaration": 220,
+                        "src": "406:5:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                          "typeString": "contract BPayEscrowVault"
+                          "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                          "typeString": "contract BPayEscrowVaultV2"
                         }
                       },
-                      "id": 178,
+                      "id": 247,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "fund",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 100,
-                      "src": "394:10:1",
+                      "referencedDeclaration": 169,
+                      "src": "406:10:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_bytes32_$_t_address_$_t_address_$_t_uint256_$_t_uint256_$_t_bytes32_$returns$__$",
                         "typeString": "function (bytes32,address,address,uint256,uint256,bytes32) external"
                       }
                     },
-                    "id": 186,
+                    "id": 255,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -460,36 +460,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "394:68:1",
+                    "src": "406:68:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 187,
+                  "id": 256,
                   "nodeType": "ExpressionStatement",
-                  "src": "394:68:1"
+                  "src": "406:68:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 189,
+            "id": 258,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "routePayment",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 174,
+              "id": 243,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 165,
+                  "id": 234,
                   "name": "orderId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "242:15:1",
+                  "scope": 258,
+                  "src": "254:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -497,10 +497,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 164,
+                    "id": 233,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "242:7:1",
+                    "src": "254:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -511,11 +511,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 167,
+                  "id": 236,
                   "name": "splitter",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "267:16:1",
+                  "scope": 258,
+                  "src": "279:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -523,10 +523,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 166,
+                    "id": 235,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "267:7:1",
+                    "src": "279:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -538,11 +538,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 169,
+                  "id": 238,
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "293:14:1",
+                  "scope": 258,
+                  "src": "305:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -550,10 +550,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 168,
+                    "id": 237,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "293:7:1",
+                    "src": "305:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -564,11 +564,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 171,
+                  "id": 240,
                   "name": "expiry",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "317:14:1",
+                  "scope": 258,
+                  "src": "329:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -576,10 +576,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 170,
+                    "id": 239,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "317:7:1",
+                    "src": "329:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -590,11 +590,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 173,
+                  "id": 242,
                   "name": "attestRef",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "341:17:1",
+                  "scope": 258,
+                  "src": "353:17:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -602,10 +602,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 172,
+                    "id": 241,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "341:7:1",
+                    "src": "353:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -615,25 +615,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "232:132:1"
+              "src": "244:132:2"
             },
             "returnParameters": {
-              "id": 175,
+              "id": 244,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "384:0:1"
+              "src": "396:0:2"
             },
-            "scope": 202,
-            "src": "211:258:1",
+            "scope": 271,
+            "src": "223:258:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 200,
+              "id": 269,
               "nodeType": "Block",
-              "src": "523:39:1",
+              "src": "535:39:2",
               "statements": [
                 {
                   "expression": {
@@ -641,12 +641,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 197,
+                        "id": 266,
                         "name": "orderId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 191,
-                        "src": "547:7:1",
+                        "referencedDeclaration": 260,
+                        "src": "559:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -662,32 +662,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 194,
+                        "id": 263,
                         "name": "vault",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 151,
-                        "src": "533:5:1",
+                        "referencedDeclaration": 220,
+                        "src": "545:5:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                          "typeString": "contract BPayEscrowVault"
+                          "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                          "typeString": "contract BPayEscrowVaultV2"
                         }
                       },
-                      "id": 196,
+                      "id": 265,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "release",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 145,
-                      "src": "533:13:1",
+                      "referencedDeclaration": 214,
+                      "src": "545:13:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_bytes32_$returns$__$",
                         "typeString": "function (bytes32) external"
                       }
                     },
-                    "id": 198,
+                    "id": 267,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -695,36 +695,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "533:22:1",
+                    "src": "545:22:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 199,
+                  "id": 268,
                   "nodeType": "ExpressionStatement",
-                  "src": "533:22:1"
+                  "src": "545:22:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 201,
+            "id": 270,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "releasePayment",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 192,
+              "id": 261,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 191,
+                  "id": 260,
                   "name": "orderId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 201,
-                  "src": "499:15:1",
+                  "scope": 270,
+                  "src": "511:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -732,10 +732,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 190,
+                    "id": 259,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "499:7:1",
+                    "src": "511:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -745,39 +745,39 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "498:17:1"
+              "src": "510:17:2"
             },
             "returnParameters": {
-              "id": 193,
+              "id": 262,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "523:0:1"
+              "src": "535:0:2"
             },
-            "scope": 202,
-            "src": "475:87:1",
+            "scope": 271,
+            "src": "487:87:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 203,
-        "src": "58:506:1"
+        "scope": 272,
+        "src": "64:512:2"
       }
     ],
-    "src": "0:565:1"
+    "src": "0:577:2"
   },
   "legacyAST": {
-    "absolutePath": "/Users/taiwo/workspace/tronbfpay/contracts/PaymentRouter.sol",
+    "absolutePath": "/Users/taiwo/workspace/tronbfpay/contracts/v2/PaymentRouterV2.sol",
     "exportedSymbols": {
-      "PaymentRouter": [
-        202
+      "PaymentRouterV2": [
+        271
       ]
     },
-    "id": 203,
+    "id": 272,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 148,
+        "id": 217,
         "literals": [
           "solidity",
           "^",
@@ -785,16 +785,16 @@
           ".4"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:1"
+        "src": "0:23:2"
       },
       {
-        "absolutePath": "/Users/taiwo/workspace/tronbfpay/contracts/BPayEscrowVault.sol",
-        "file": "./BPayEscrowVault.sol",
-        "id": 149,
+        "absolutePath": "/Users/taiwo/workspace/tronbfpay/contracts/v2/BPayEscrowVaultV2.sol",
+        "file": "../v2/BPayEscrowVaultV2.sol",
+        "id": 218,
         "nodeType": "ImportDirective",
-        "scope": 203,
-        "sourceUnit": 147,
-        "src": "25:31:1",
+        "scope": 272,
+        "sourceUnit": 216,
+        "src": "25:37:2",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -804,36 +804,36 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 202,
+        "id": 271,
         "linearizedBaseContracts": [
-          202
+          271
         ],
-        "name": "PaymentRouter",
+        "name": "PaymentRouterV2",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 151,
+            "id": 220,
             "name": "vault",
             "nodeType": "VariableDeclaration",
-            "scope": 202,
-            "src": "87:28:1",
+            "scope": 271,
+            "src": "95:30:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-              "typeString": "contract BPayEscrowVault"
+              "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+              "typeString": "contract BPayEscrowVaultV2"
             },
             "typeName": {
               "contractScope": null,
-              "id": 150,
-              "name": "BPayEscrowVault",
+              "id": 219,
+              "name": "BPayEscrowVaultV2",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 146,
-              "src": "87:15:1",
+              "referencedDeclaration": 215,
+              "src": "95:17:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                "typeString": "contract BPayEscrowVault"
+                "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                "typeString": "contract BPayEscrowVaultV2"
               }
             },
             "value": null,
@@ -841,29 +841,29 @@
           },
           {
             "body": {
-              "id": 162,
+              "id": 231,
               "nodeType": "Block",
-              "src": "157:48:1",
+              "src": "167:50:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 160,
+                    "id": 229,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 156,
+                      "id": 225,
                       "name": "vault",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 151,
-                      "src": "167:5:1",
+                      "referencedDeclaration": 220,
+                      "src": "177:5:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                        "typeString": "contract BPayEscrowVault"
+                        "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                        "typeString": "contract BPayEscrowVaultV2"
                       }
                     },
                     "nodeType": "Assignment",
@@ -873,12 +873,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 158,
+                          "id": 227,
                           "name": "_vault",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 153,
-                          "src": "191:6:1",
+                          "referencedDeclaration": 222,
+                          "src": "203:6:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -892,18 +892,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 157,
-                        "name": "BPayEscrowVault",
+                        "id": 226,
+                        "name": "BPayEscrowVaultV2",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 146,
-                        "src": "175:15:1",
+                        "referencedDeclaration": 215,
+                        "src": "185:17:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_BPayEscrowVault_$146_$",
-                          "typeString": "type(contract BPayEscrowVault)"
+                          "typeIdentifier": "t_type$_t_contract$_BPayEscrowVaultV2_$215_$",
+                          "typeString": "type(contract BPayEscrowVaultV2)"
                         }
                       },
-                      "id": 159,
+                      "id": 228,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -911,42 +911,42 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "175:23:1",
+                      "src": "185:25:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                        "typeString": "contract BPayEscrowVault"
+                        "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                        "typeString": "contract BPayEscrowVaultV2"
                       }
                     },
-                    "src": "167:31:1",
+                    "src": "177:33:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                      "typeString": "contract BPayEscrowVault"
+                      "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                      "typeString": "contract BPayEscrowVaultV2"
                     }
                   },
-                  "id": 161,
+                  "id": 230,
                   "nodeType": "ExpressionStatement",
-                  "src": "167:31:1"
+                  "src": "177:33:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 163,
+            "id": 232,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 154,
+              "id": 223,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 153,
+                  "id": 222,
                   "name": "_vault",
                   "nodeType": "VariableDeclaration",
-                  "scope": 163,
-                  "src": "134:14:1",
+                  "scope": 232,
+                  "src": "144:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -954,10 +954,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 152,
+                    "id": 221,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "134:7:1",
+                    "src": "144:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -968,25 +968,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "133:16:1"
+              "src": "143:16:2"
             },
             "returnParameters": {
-              "id": 155,
+              "id": 224,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "157:0:1"
+              "src": "167:0:2"
             },
-            "scope": 202,
-            "src": "122:83:1",
+            "scope": 271,
+            "src": "132:85:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 188,
+              "id": 257,
               "nodeType": "Block",
-              "src": "384:85:1",
+              "src": "396:85:2",
               "statements": [
                 {
                   "expression": {
@@ -994,12 +994,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 179,
+                        "id": 248,
                         "name": "orderId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 165,
-                        "src": "405:7:1",
+                        "referencedDeclaration": 234,
+                        "src": "417:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -1009,18 +1009,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 180,
+                          "id": 249,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 286,
-                          "src": "414:3:1",
+                          "src": "426:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 181,
+                        "id": 250,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1028,7 +1028,7 @@
                         "memberName": "sender",
                         "nodeType": "MemberAccess",
                         "referencedDeclaration": null,
-                        "src": "414:10:1",
+                        "src": "426:10:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
@@ -1036,12 +1036,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 182,
+                        "id": 251,
                         "name": "splitter",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 167,
-                        "src": "426:8:1",
+                        "referencedDeclaration": 236,
+                        "src": "438:8:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1049,12 +1049,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 183,
+                        "id": 252,
                         "name": "amount",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 169,
-                        "src": "436:6:1",
+                        "referencedDeclaration": 238,
+                        "src": "448:6:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1062,12 +1062,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 184,
+                        "id": 253,
                         "name": "expiry",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 171,
-                        "src": "444:6:1",
+                        "referencedDeclaration": 240,
+                        "src": "456:6:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1075,12 +1075,12 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 185,
+                        "id": 254,
                         "name": "attestRef",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 173,
-                        "src": "452:9:1",
+                        "referencedDeclaration": 242,
+                        "src": "464:9:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -1116,32 +1116,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 176,
+                        "id": 245,
                         "name": "vault",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 151,
-                        "src": "394:5:1",
+                        "referencedDeclaration": 220,
+                        "src": "406:5:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                          "typeString": "contract BPayEscrowVault"
+                          "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                          "typeString": "contract BPayEscrowVaultV2"
                         }
                       },
-                      "id": 178,
+                      "id": 247,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "fund",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 100,
-                      "src": "394:10:1",
+                      "referencedDeclaration": 169,
+                      "src": "406:10:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_bytes32_$_t_address_$_t_address_$_t_uint256_$_t_uint256_$_t_bytes32_$returns$__$",
                         "typeString": "function (bytes32,address,address,uint256,uint256,bytes32) external"
                       }
                     },
-                    "id": 186,
+                    "id": 255,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1149,36 +1149,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "394:68:1",
+                    "src": "406:68:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 187,
+                  "id": 256,
                   "nodeType": "ExpressionStatement",
-                  "src": "394:68:1"
+                  "src": "406:68:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 189,
+            "id": 258,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "routePayment",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 174,
+              "id": 243,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 165,
+                  "id": 234,
                   "name": "orderId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "242:15:1",
+                  "scope": 258,
+                  "src": "254:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1186,10 +1186,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 164,
+                    "id": 233,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "242:7:1",
+                    "src": "254:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1200,11 +1200,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 167,
+                  "id": 236,
                   "name": "splitter",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "267:16:1",
+                  "scope": 258,
+                  "src": "279:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1212,10 +1212,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 166,
+                    "id": 235,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "267:7:1",
+                    "src": "279:7:2",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1227,11 +1227,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 169,
+                  "id": 238,
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "293:14:1",
+                  "scope": 258,
+                  "src": "305:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1239,10 +1239,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 168,
+                    "id": 237,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "293:7:1",
+                    "src": "305:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1253,11 +1253,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 171,
+                  "id": 240,
                   "name": "expiry",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "317:14:1",
+                  "scope": 258,
+                  "src": "329:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1265,10 +1265,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 170,
+                    "id": 239,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "317:7:1",
+                    "src": "329:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1279,11 +1279,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 173,
+                  "id": 242,
                   "name": "attestRef",
                   "nodeType": "VariableDeclaration",
-                  "scope": 189,
-                  "src": "341:17:1",
+                  "scope": 258,
+                  "src": "353:17:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1291,10 +1291,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 172,
+                    "id": 241,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "341:7:1",
+                    "src": "353:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1304,25 +1304,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "232:132:1"
+              "src": "244:132:2"
             },
             "returnParameters": {
-              "id": 175,
+              "id": 244,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "384:0:1"
+              "src": "396:0:2"
             },
-            "scope": 202,
-            "src": "211:258:1",
+            "scope": 271,
+            "src": "223:258:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 200,
+              "id": 269,
               "nodeType": "Block",
-              "src": "523:39:1",
+              "src": "535:39:2",
               "statements": [
                 {
                   "expression": {
@@ -1330,12 +1330,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 197,
+                        "id": 266,
                         "name": "orderId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 191,
-                        "src": "547:7:1",
+                        "referencedDeclaration": 260,
+                        "src": "559:7:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -1351,32 +1351,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 194,
+                        "id": 263,
                         "name": "vault",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 151,
-                        "src": "533:5:1",
+                        "referencedDeclaration": 220,
+                        "src": "545:5:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_BPayEscrowVault_$146",
-                          "typeString": "contract BPayEscrowVault"
+                          "typeIdentifier": "t_contract$_BPayEscrowVaultV2_$215",
+                          "typeString": "contract BPayEscrowVaultV2"
                         }
                       },
-                      "id": 196,
+                      "id": 265,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "release",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 145,
-                      "src": "533:13:1",
+                      "referencedDeclaration": 214,
+                      "src": "545:13:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_bytes32_$returns$__$",
                         "typeString": "function (bytes32) external"
                       }
                     },
-                    "id": 198,
+                    "id": 267,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1384,36 +1384,36 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "533:22:1",
+                    "src": "545:22:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 199,
+                  "id": 268,
                   "nodeType": "ExpressionStatement",
-                  "src": "533:22:1"
+                  "src": "545:22:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 201,
+            "id": 270,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "releasePayment",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 192,
+              "id": 261,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 191,
+                  "id": 260,
                   "name": "orderId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 201,
-                  "src": "499:15:1",
+                  "scope": 270,
+                  "src": "511:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1421,10 +1421,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 190,
+                    "id": 259,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "499:7:1",
+                    "src": "511:7:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1434,26 +1434,26 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "498:17:1"
+              "src": "510:17:2"
             },
             "returnParameters": {
-              "id": 193,
+              "id": 262,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "523:0:1"
+              "src": "535:0:2"
             },
-            "scope": 202,
-            "src": "475:87:1",
+            "scope": 271,
+            "src": "487:87:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 203,
-        "src": "58:506:1"
+        "scope": 272,
+        "src": "64:512:2"
       }
     ],
-    "src": "0:565:1"
+    "src": "0:577:2"
   },
   "compiler": {
     "name": "solc",
@@ -1463,10 +1463,10 @@
     "3": {
       "events": {},
       "links": {},
-      "address": "41e2b82b708d4a1f7f234320fdc4ac5543d7e79bcf",
-      "transactionHash": "35d47923d8d79a14153f9032b3b82bae39f77f2109f40d5ed4ec974b0c5683d5"
+      "address": "410befbae3d464af49c075c598299b4f7cda65e3af",
+      "transactionHash": "f7e1ed9f981debf589d212b4bbe282d13fa434772d1c071fb03537f016e5537c"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2025-08-23T17:53:57.275Z"
+  "updatedAt": "2025-08-23T17:53:57.276Z"
 }
