@@ -8,3 +8,11 @@ sudo npm install dotenv --save
 tronbox migrate --network nile
 
 npm install dotenv
+
+npm install express open
+
+sudo npm install --save-dev typescript @types/node @types/express
+npx tsc --init
+
+npx tsc
+node dist/server.js

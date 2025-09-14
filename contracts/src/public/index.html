@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tron Escrow dApp</title>
+  <script src="https://cdn.jsdelivr.net/npm/tronweb/dist/TronWeb.js"></script>
+</head>
+<body>
+  <h1>🚀 Tron Escrow Payment</h1>
+  <button id="payBtn">Pay Into Escrow</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    const CONTRACT_ADDRESS = "YOUR_ESCROW_CONTRACT_ADDRESS";
+    const tronWeb = new TronWeb({
+      fullHost: "https://api.nileex.io", // Nile Testnet
+      privateKey: "YOUR_TEST_PRIVATE_KEY" // For server-side only; remove in prod
+    });
+
+    async function fundEscrow() {
+      try {
+        const contract = await tronWeb.contract().at(CONTRACT_ADDRESS);
+
+        const tx = await contract.fund(
+          123, // orderId
+          "0xRecipientAddress", // recipient
+          "0xSplitterAddress",  // fee splitter
+          1000000,              // amount in SUN
+          Math.floor(Date.now()/1000) + 3600, // expiry
+          "0xAttestation"       // attestRef
+        ).send();
+
+        document.getElementById("output").textContent =
+          "✅ Tx Sent: " + tx;
+
+        // Fetch receipt
+        const receipt = await tronWeb.trx.getTransactionInfo(tx);
+        document.getElementById("output").textContent +=
+          "\n📜 Receipt: " + JSON.stringify(receipt, null, 2);
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById("output").textContent =
+          "❌ Error: " + err.message;
+      }
+    }
+
+    document.getElementById("payBtn").addEventListener("click", fundEscrow);
+  </script>
+</body>
+</html>
