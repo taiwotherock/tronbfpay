@@ -30,7 +30,7 @@ contract LiquidityPool is ReentrancyGuard {
     event Unpaused(address indexed by);
     event EmergencyWithdraw(address indexed token, address indexed to, uint256 amount);
 
-    constructor(address _tokenA, address _accessControl){
+    constructor(address _tokenA, address _accessControl) public {
         tokenA = ITRC20(_tokenA); 
         accessControl = _accessControl;
         paused = false;
@@ -75,15 +75,15 @@ contract LiquidityPool is ReentrancyGuard {
         ITRC20 t = ITRC20(tokenA);
 
         // Check balance before
-        uint256 before = t.balanceOf(address(this));
+        uint256 balBefore = t.balanceOf(address(this));
 
         // Transfer in tokens
         SafeTRC20.safeTransferFrom(t, msg.sender, address(this), amount);
 
         // Check actual received
-        uint256 after = t.balanceOf(address(this));
-        require(after >= before, "Vault: invalid transfer");
-        uint256 received = after - before;
+        uint256 balAfter = t.balanceOf(address(this));
+        require(balAfter >= balBefore, "Vault: invalid transfer");
+        uint256 received = balAfter - balBefore;
         require(received > 0, "Vault: no tokens received");
 
         // Update accounting using received amount
@@ -99,7 +99,6 @@ contract LiquidityPool is ReentrancyGuard {
     external 
     nonReentrant 
     whenNotPaused 
-    onlySupported(token) 
     {
         require(token == address(tokenA), "Vault: invalid token");
         require(withdrawWhitelist[msg.sender], "Vault: not whitelisted");

@@ -2,11 +2,12 @@
 pragma solidity ^0.5.4;
 
 /// @notice Minimal ERC721 implementation with Ownable included
-contract BorderlessCreditNFT {
+contract BorderlessCreditScoreNFT {
     string public name = "Borderless Credit Score NFT";
     string public symbol = "BCSNFT";
 
     address public owner;
+    address public creditOfficer;
     uint256 private _nextTokenId = 1;
 
     mapping(uint256 => address) private _owners;
@@ -44,12 +45,13 @@ contract BorderlessCreditNFT {
     );
 
     modifier onlyOwner() {
-        require(msg.sender == owner, "Not owner");
+        require(msg.sender == owner || msg.sender == creditOfficer, "Not owner");
         _;
     }
 
-    constructor() {
+    constructor(address _creditOfficer) public {
         owner = msg.sender;
+        creditOfficer = _creditOfficer;
     }
 
     function _exists(uint256 tokenId) internal view returns (bool) {
@@ -74,7 +76,7 @@ contract BorderlessCreditNFT {
         address borrower,
         uint16 creditScore,
         uint256 creditLimit,
-        address creditOfficer,
+        address _creditOfficer,
         address creditManager
     ) external onlyOwner returns (uint256) {
         require(borrower != address(0), "Invalid borrower");
@@ -88,7 +90,7 @@ contract BorderlessCreditNFT {
         _creditProfiles[tokenId] = CreditProfile({
             creditScore: creditScore,
             creditLimit: creditLimit,
-            creditOfficer: creditOfficer,
+            creditOfficer: _creditOfficer,
             creditManager: creditManager,
             issuedAt: block.timestamp,
             active: true
@@ -104,14 +106,14 @@ contract BorderlessCreditNFT {
         uint256 tokenId,
         uint16 newCreditScore,
         uint256 newCreditLimit,
-        address creditOfficer
+        address _creditOfficer
     ) external onlyOwner {
         require(_exists(tokenId), "Token does not exist");
 
         CreditProfile storage profile = _creditProfiles[tokenId];
         profile.creditScore = newCreditScore;
         profile.creditLimit = newCreditLimit;
-        profile.creditOfficer = creditOfficer;
+        profile.creditOfficer = _creditOfficer;
         profile.issuedAt = block.timestamp;
 
         emit CreditNFTUpdated(tokenId, newCreditScore, newCreditLimit, creditOfficer, block.timestamp);
@@ -135,7 +137,7 @@ contract BorderlessCreditNFT {
         returns (
             uint16 creditScore,
             uint256 creditLimit,
-            address creditOfficer,
+            address _creditOfficer,
             address creditManager,
             uint256 issuedAt,
             bool active

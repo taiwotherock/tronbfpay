@@ -25,6 +25,9 @@ contract LoanVaultCore is ReentrancyGuard {
 
     event CollateralDeposited(address indexed who, address indexed token, uint256 amount);
     event CollateralRemoved(address indexed who, address indexed token, uint256 amount);
+    event Paused(address indexed by);
+    event Unpaused(address indexed by);
+    event EmergencyWithdraw(address indexed token, address indexed to, uint256 amount);
 
     constructor(address _accessControl, address _liquidityPool) public 
     { 
@@ -92,7 +95,7 @@ contract LoanVaultCore is ReentrancyGuard {
     }
 
     // helper to sweep collateral to repay loan
-    function sweepCollateral(address to, address token, uint256 amount) external {
+    function sweepCollateral(address borrower, address token, uint256 amount) external {
         require(token != address(0), "LoanVaultCore: zero token");
         require(borrower != address(0), "LoanVaultCore: zero borrower");
         require(amount > 0, "LoanVaultCore: zero amount");
@@ -107,7 +110,7 @@ contract LoanVaultCore is ReentrancyGuard {
         collateral[borrower][token] -= amount;
 
         ITRC20(token).safeTransfer(msg.sender, amount);
-        emit CollateralRemoved(to, token, amount);
+        emit CollateralRemoved(borrower, token, amount);
     }
 
     /// @dev Internal authorization helper

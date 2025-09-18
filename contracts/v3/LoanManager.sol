@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.5.4;
 
 import "../libs/ReentrancyGuard.sol";
 import "../libs/SafeTRC20.sol";
 
+/*
 interface ITRC20 {
     function balanceOf(address account) external view returns (uint256);
     function transfer(address to, uint256 value) external returns (bool);
     function transferFrom(address from, address to, uint256 value) external returns (bool);
 }
+*/
 
 interface ILiquidityPool {
     function pullFunds(address token, address to, uint256 amount) external;
@@ -76,7 +78,7 @@ contract LoanManager is ReentrancyGuard {
         _;
     }
 
-    constructor(address _accessControl, address _liquidityPool, address _vault, address _creditNFT) {
+    constructor(address _accessControl, address _liquidityPool, address _vault, address _creditNFT) public {
         require(_accessControl != address(0), "LoanManager: zero accessControl");
         require(_liquidityPool != address(0), "LoanManager: zero liquidityPool");
         require(_vault != address(0), "LoanManager: zero vault");
@@ -171,18 +173,20 @@ contract LoanManager is ReentrancyGuard {
     function repay(address token, uint256 amount) external nonReentrant whenNotPaused {
         require(amount > 0, "LoanManager: zero amount");
 
+        uint256 payAmount = amount;
         Loan storage L = loans[msg.sender];
         require(L.active, "LoanManager: no active loan");
         require(token == L.token, "LoanManager: wrong token");
 
-        if (amount > L.outstanding) amount = L.outstanding;
+        if (payAmount > L.outstanding) 
+             payAmount = L.outstanding;
 
-        ITRC20(token).safeTransferFrom(msg.sender, address(this), amount);
+        ITRC20(token).safeTransferFrom(msg.sender, address(this), payAmount);
 
-        L.outstanding -= amount;
+        L.outstanding -= payAmount;
         L.installmentsPaid += 1;
 
-        emit Repayment(msg.sender, amount, L.installmentsPaid);
+        emit Repayment(msg.sender, payAmount, L.installmentsPaid);
 
         if (L.outstanding == 0) {
             L.active = false;

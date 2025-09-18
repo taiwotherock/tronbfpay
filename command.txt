@@ -16,3 +16,9 @@ npx tsc --init
 
 npx tsc
 node dist/server.js
+
+
+sudo npm install --save-dev mocha chai tronweb
+npx tronbox compile
+Run test
+sudo npx mocha test/liquidityPool.test.js --exit

@@ -1,2 +1,2 @@
-export declare function openBrowser(url: string): Promise<void>;
+export {};
 //# sourceMappingURL=openBroswer.d.ts.map
