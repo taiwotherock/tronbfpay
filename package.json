@@ -9,7 +9,7 @@
     "@types/node": "^24.5.2",
     "chai": "^6.0.1",
     "mocha": "^11.7.2",
-    "tronweb": "^6.0.4",
+    "tronweb": "^3.2.7",
     "typescript": "^5.9.2"
   }
 }

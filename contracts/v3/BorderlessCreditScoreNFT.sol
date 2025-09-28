@@ -149,6 +149,7 @@ contract BorderlessCreditScoreNFT {
         return (p.creditScore, p.creditLimit, p.creditOfficer, p.creditManager, p.issuedAt, p.active);
     }
 
+
     // Restrict transfers
     function transferFrom(address from, address to, uint256 tokenId) external pure {
         require(false, "Transfers disabled"); // only mint/burn allowed

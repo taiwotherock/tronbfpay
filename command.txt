@@ -1,4 +1,7 @@
 
+
+npm install -g tronbox
+tronbox --version
 tronbox init
 
 sudo npm install tronweb@3.2.7
