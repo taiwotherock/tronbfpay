@@ -25,3 +25,8 @@ sudo npm install --save-dev mocha chai tronweb
 npx tronbox compile
 Run test
 sudo npx mocha test/liquidityPool.test.js --exit
+
+
+tronbox migrate --network nile --reset --verbose-rpc
+
+npm install solc

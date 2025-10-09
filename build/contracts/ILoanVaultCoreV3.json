@@ -1,5 +1,5 @@
 {
-  "contractName": "IBorderlessCreditNFT",
+  "contractName": "ILoanVaultCoreV3",
   "abi": [
     {
       "inputs": [
@@ -7,9 +7,14 @@
           "internalType": "address",
           "name": "borrower",
           "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
         }
       ],
-      "name": "getCreditLimitByBorrower",
+      "name": "getVaultBalance",
       "outputs": [
         {
           "internalType": "uint256",
@@ -23,20 +28,36 @@
     {
       "inputs": [
         {
-          "internalType": "address",
-          "name": "borrower",
-          "type": "address"
+          "components": [
+            {
+              "internalType": "address",
+              "name": "borrower",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "tokenToBorrow",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "merchantAddr",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "depositAmount",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct ILoanVaultCoreV3.SweepParams",
+          "name": "p",
+          "type": "tuple"
         }
       ],
-      "name": "getCreditScoreByBorrower",
-      "outputs": [
-        {
-          "internalType": "uint16",
-          "name": "",
-          "type": "uint16"
-        }
-      ],
-      "stateMutability": "view",
+      "name": "sweepCollateral",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     }
   ],
@@ -30200,5 +30221,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2025-10-09T12:14:34.366Z"
+  "updatedAt": "2025-10-09T12:14:34.405Z"
 }

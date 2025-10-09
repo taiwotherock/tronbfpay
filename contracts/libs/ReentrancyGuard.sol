@@ -1,15 +1,21 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.5.4;
+pragma solidity ^0.8.20;
 
-contract ReentrancyGuard {
-    uint256 private _status;
-    constructor() public { 
-        _status = 1; 
-    }
+/**
+ * @title ReentrancyGuard
+ * @dev Prevents reentrant calls to a function.
+ * Usage: inherit and apply the `nonReentrant` modifier to external functions.
+ */
+abstract contract ReentrancyGuard {
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+    uint256 private _status = _NOT_ENTERED;
+
     modifier nonReentrant() {
-        require(_status == 1, "Reentrant call");
-        _status = 2;
+        require(_status == _NOT_ENTERED, "ReentrancyGuard: reentrant call");
+        _status = _ENTERED;
         _;
-        _status = 1;
+        _status = _NOT_ENTERED;
     }
 }
+
