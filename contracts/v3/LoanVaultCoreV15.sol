@@ -9,13 +9,14 @@ interface ITRC20 {
     function balanceOf(address account) external view returns (uint256);
     function allowance(address owner, address spender) external view returns (uint256);
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+    function transfer(address recipient, uint256 amount) external returns (bool);
 }
 
 interface IAccessControl {
     function isAdmin(address user) external view returns (bool);
 }
 
-contract LoanVaultCoreV11 {
+contract LoanVaultCoreV15 {
     address public accessControl;
     address public liquidityPool;
     bool public paused;
@@ -37,6 +38,11 @@ contract LoanVaultCoreV11 {
     event EmergencyWithdraw(address indexed token, address indexed to, uint256 amount);
 
     modifier onlyAuthorized() {
+        require(_isAuthorized(msg.sender), "LoanVaultCore: not authorized");
+        _;
+    }
+
+     modifier onlyCreditOfficer() {
         require(_isAuthorized(msg.sender), "LoanVaultCore: not authorized");
         _;
     }
@@ -93,15 +99,16 @@ contract LoanVaultCoreV11 {
 
         collateral[borrower][token] -= amount;
 
+        // ✅ Correct TRC20 transfer from vault to authorized caller
         (bool success, bytes memory data) = token.call(
-            abi.encodeWithSelector(ITRC20.transferFrom.selector, address(this), msg.sender, amount)
+            abi.encodeWithSelector(ITRC20.transfer.selector, msg.sender, amount)
         );
-        require(success && (data.length == 0 || abi.decode(data, (bool))), "transfer failed");
+        require(success && (data.length == 0 || abi.decode(data, (bool))), "USDT transfer failed");
 
         emit CollateralSweep(borrower, token, amount);
     }
 
-    function sweepCollateral(SweepParams calldata p) external onlyAuthorized {
+    /*function sweepCollateral(SweepParams calldata p) external onlyAuthorized {
         require(p.tokenToBorrow != address(0) && p.borrower != address(0) && p.merchantAddr != address(0), "zero address");
         require(p.depositAmount > 0, "zero amount");
         require(collateral[p.borrower][p.tokenToBorrow] >= p.depositAmount, "insufficient collateral");
@@ -112,6 +119,33 @@ contract LoanVaultCoreV11 {
             abi.encodeWithSelector(ITRC20.transferFrom.selector, address(this), p.merchantAddr, p.depositAmount)
         );
         require(success && (data.length == 0 || abi.decode(data, (bool))), "transfer failed");
+
+        emit CollateralSweep(p.borrower, p.tokenToBorrow, p.depositAmount);
+    }*/
+
+    function sweepCollateral(SweepParams calldata p) external onlyAuthorized {
+        require(p.tokenToBorrow != address(0) && p.borrower != address(0) && p.merchantAddr != address(0), "zero address");
+        require(p.depositAmount > 0, "zero amount");
+        require(collateral[p.borrower][p.tokenToBorrow] >= p.depositAmount, "insufficient collateral");
+
+        collateral[p.borrower][p.tokenToBorrow] -= p.depositAmount;
+
+        /*(bool success, bytes memory data) = p.tokenToBorrow.call(
+            abi.encodeWithSelector(ITRC20.transfer.selector, p.merchantAddr, p.depositAmount)
+        );
+        require(success && (data.length == 0 || abi.decode(data, (bool))), "transfer failed");
+        */
+
+       uint256 vaultBalance = ITRC20(p.tokenToBorrow).balanceOf(address(this));
+      require(vaultBalance >= p.depositAmount, "vault has insufficient token balance");
+
+        try ITRC20(p.tokenToBorrow).transfer(p.merchantAddr, p.depositAmount) returns (bool ok) {
+            require(ok, "transfer returned false");
+        } catch Error(string memory reason) {
+            revert(string(abi.encodePacked("token revert: ", reason)));
+        } catch {
+            revert("token revert: unknown");
+        }
 
         emit CollateralSweep(p.borrower, p.tokenToBorrow, p.depositAmount);
     }
@@ -133,4 +167,5 @@ contract LoanVaultCoreV11 {
     function _isAuthorized(address user) internal view returns (bool) {
         return accessControl != address(0) && IAccessControl(accessControl).isAdmin(user);
     }
+
 }

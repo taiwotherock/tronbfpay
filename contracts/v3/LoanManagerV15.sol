@@ -35,7 +35,7 @@ interface IAccessControl {
     function isKeeper(address user) external view returns (bool);
 }
 
-contract LoanManagerV11 is ReentrancyGuard {
+contract LoanManagerV15 is ReentrancyGuard {
    
 
     // External contracts
@@ -87,6 +87,13 @@ contract LoanManagerV11 is ReentrancyGuard {
         require(accessControl.isCreditOfficer(msg.sender), "LoanManager: not credit officer");
         _;
     }
+
+    modifier onlyCreditOfficerOrAdmin() {
+        require(accessControl.isCreditOfficer(msg.sender) || accessControl.isAdmin(msg.sender), "LoanManager: not credit officer or admin");
+        _;
+    }
+
+    
 
     modifier whenNotPaused() {
         require(!paused, "LoanManager: paused");
@@ -177,7 +184,7 @@ contract LoanManagerV11 is ReentrancyGuard {
         uint256 depositAmount,
         uint256 fee,
         address merchantAddr
-    ) external onlyCreditOfficer nonReentrant whenNotPaused {
+    ) external onlyCreditOfficerOrAdmin nonReentrant whenNotPaused {
         require(!_isPrivileged(borrower), "Privileged cannot borrow");
         require(borrower != address(0) && merchantAddr != address(0), "Zero addr");
         require(!loans[borrower].active, "Existing loan");

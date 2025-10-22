@@ -29,4 +29,18 @@ sudo npx mocha test/liquidityPool.test.js --exit
 
 tronbox migrate --network nile --reset --verbose-rpc
 
+tronbox migrate  --network nile  --f 25 --to 25 --reset
+
 npm install solc
+
+
+
+Running migration: 21_deploy_contract.js
+  Deploying LoanManagerV12...
+  LoanManagerV12:
+    (base58) TQw7b1LC51EDYJZsV1No3T5b21piTDQjeH
+    (hex) 41a42488ed4cb8397082fa9819f86484f8fc1dfcde
+LoanManager deployed (hex): 41a42488ed4cb8397082fa9819f86484f8fc1dfcde
+LoanManager deployed (base58): TQw7b1LC51EDYJZsV1No3T5b21piTDQjeH
+✅ All contracts deployed successfully!
+Saving successful migration to network...

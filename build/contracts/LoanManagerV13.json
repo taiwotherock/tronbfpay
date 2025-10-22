@@ -1,6 +1,239 @@
 {
-  "contractName": "IBorderlessCreditNFT",
+  "contractName": "LoanManagerV13",
   "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_accessControl",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_liquidityPool",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_vault",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_creditNFT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_platformFeeAddr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_lenderPoolIncomeAddr",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "BorrowerRepayment",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "totalAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "merchant",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "settleAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "LoanApproved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        }
+      ],
+      "name": "LoanRepaid",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "requestedAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "LoanRequested",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "by",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "by",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "accessControl",
+      "outputs": [
+        {
+          "internalType": "contract IAccessControl",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenToBorrow",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "depositAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "fee",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "merchantAddr",
+          "type": "address"
+        }
+      ],
+      "name": "approveAndDisburse",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "creditNFT",
+      "outputs": [
+        {
+          "internalType": "contract IBorderlessCreditNFT",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllBorrowers",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
     {
       "inputs": [
         {
@@ -9,7 +242,214 @@
           "type": "address"
         }
       ],
-      "name": "getCreditLimitByBorrower",
+      "name": "getLoanDetails",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "loanBorrower",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "merchant",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "principal",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "outstanding",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "startedAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "installmentsPaid",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "fee",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "active",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLoanStats",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "totalPrincipal",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalOutstanding",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalPaid",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalFees",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "activeCount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalCount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "lenderIncomeOfTotalBps",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "lenderPoolIncomeAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountNeeded",
+          "type": "uint256"
+        }
+      ],
+      "name": "liquidateDue",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "liquidityPool",
+      "outputs": [
+        {
+          "internalType": "contract ILiquidityPool",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "loans",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "merchant",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "principal",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "outstanding",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "startedAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "installmentsPaid",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "fee",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "active",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "merchantFeeBps",
       "outputs": [
         {
           "internalType": "uint256",
@@ -28,26 +468,177 @@
           "type": "address"
         }
       ],
-      "name": "getCreditScoreByBorrower",
+      "name": "outstandingOf",
       "outputs": [
         {
-          "internalType": "uint16",
+          "internalType": "uint256",
           "name": "",
-          "type": "uint16"
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "platformFeeAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "platformFeeOfTotalBps",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "repay",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenToBorrow",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "requestedAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "requestLoan",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_platformFeeAddr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_lenderPoolIncomeAddr",
+          "type": "address"
+        }
+      ],
+      "name": "setFeeAddresses",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_bps",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMerchantFeeBps",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_platformBps",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_lenderBps",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPlatformAndLenderFeeSplits",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "vault",
+      "outputs": [
+        {
+          "internalType": "contract ILoanVaultCoreV3",
+          "name": "",
+          "type": "address"
         }
       ],
       "stateMutability": "view",
       "type": "function"
     }
   ],
-  "bytecode": "0x",
-  "deployedBytecode": "0x",
-  "sourceMap": "",
-  "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.23;\r\n\r\nimport \"../libs/ReentrancyGuard.sol\";\r\n\r\ninterface ITRC20 {\r\n    function balanceOf(address account) external view returns (uint256);\r\n    function transfer(address to, uint256 value) external returns (bool);\r\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\r\n}\r\n\r\ninterface ILoanVaultCoreV3 {\r\n    struct SweepParams {\r\n        address borrower;\r\n        address tokenToBorrow;\r\n        address merchantAddr;\r\n        uint256 depositAmount;\r\n    }\r\n    function sweepCollateral(SweepParams calldata p) external;\r\n    function getVaultBalance(address borrower, address token) external view returns (uint256);\r\n}\r\n\r\ninterface ILiquidityPool {\r\n    function pullFunds(address token, address to, uint256 amount) external;\r\n}\r\n\r\ninterface IBorderlessCreditNFT {\r\n    function getCreditScoreByBorrower(address borrower) external view returns (uint16);\r\n    function getCreditLimitByBorrower(address borrower) external view returns (uint256);\r\n}\r\n\r\ninterface IAccessControl {\r\n    function isAdmin(address user) external view returns (bool);\r\n    function isCreditOfficer(address user) external view returns (bool);\r\n    function isKeeper(address user) external view returns (bool);\r\n}\r\n\r\ncontract LoanManagerV15 is ReentrancyGuard {\r\n   \r\n\r\n    // External contracts\r\n    IAccessControl public accessControl;\r\n    ILiquidityPool public liquidityPool;\r\n    ILoanVaultCoreV3 public vault;\r\n    IBorderlessCreditNFT public creditNFT;\r\n\r\n    // Pause state\r\n    bool public paused;\r\n\r\n    // Fees (bps)\r\n    uint256 public merchantFeeBps = 800;\r\n    uint256 public platformFeeOfTotalBps = 100;\r\n    uint256 public lenderIncomeOfTotalBps = 700;\r\n    address public platformFeeAddress;\r\n    address public lenderPoolIncomeAddress;\r\n\r\n    struct Loan {\r\n        address borrower;\r\n        address token;\r\n        address merchant;\r\n        uint256 principal;\r\n        uint256 outstanding;\r\n        uint256 startedAt;\r\n        uint256 installmentsPaid;\r\n        uint256 fee;\r\n        bool active;\r\n    }\r\n\r\n    mapping(address => Loan) public loans;\r\n    address[] private borrowers; // track loan borrowers\r\n    mapping(address => bool) private hasLoan; // prevent duplicates\r\n\r\n    // Events\r\n    event LoanRequested(address indexed borrower, uint256 requestedAmount);\r\n    event LoanApproved(address indexed borrower, uint256 totalAmount, address indexed token, address indexed merchant, uint256 settleAmount);\r\n    event BorrowerRepayment(address indexed borrower, address indexed token, uint256 amount);\r\n    event LoanRepaid(address indexed borrower);\r\n    event Paused(address indexed by);\r\n    event Unpaused(address indexed by);\r\n\r\n    modifier onlyAdmin() {\r\n        require(accessControl.isAdmin(msg.sender), \"LoanManager: not admin\");\r\n        _;\r\n    }\r\n\r\n    modifier onlyCreditOfficer() {\r\n        require(accessControl.isCreditOfficer(msg.sender), \"LoanManager: not credit officer\");\r\n        _;\r\n    }\r\n\r\n    modifier onlyCreditOfficerOrAdmin() {\r\n        require(accessControl.isCreditOfficer(msg.sender) || accessControl.isAdmin(msg.sender), \"LoanManager: not credit officer or admin\");\r\n        _;\r\n    }\r\n\r\n    \r\n\r\n    modifier whenNotPaused() {\r\n        require(!paused, \"LoanManager: paused\");\r\n        _;\r\n    }\r\n\r\n    constructor(\r\n        address _accessControl,\r\n        address _liquidityPool,\r\n        address _vault,\r\n        address _creditNFT,\r\n        address _platformFeeAddr,\r\n        address _lenderPoolIncomeAddr\r\n    ) {\r\n        require(_accessControl != address(0) && _liquidityPool != address(0) &&\r\n                _vault != address(0) && _creditNFT != address(0) &&\r\n                _platformFeeAddr != address(0) && _lenderPoolIncomeAddr != address(0),\r\n                \"LoanManager: zero address\");\r\n\r\n        accessControl = IAccessControl(_accessControl);\r\n        liquidityPool = ILiquidityPool(_liquidityPool);\r\n        vault = ILoanVaultCoreV3(_vault);\r\n        creditNFT = IBorderlessCreditNFT(_creditNFT);\r\n        platformFeeAddress = _platformFeeAddr;\r\n        lenderPoolIncomeAddress = _lenderPoolIncomeAddr;\r\n        paused = false;\r\n    }\r\n\r\n    // --- Pause functions ---\r\n    function pause() external onlyAdmin {\r\n        paused = true;\r\n        emit Paused(msg.sender);\r\n    }\r\n\r\n    function unpause() external onlyAdmin {\r\n        paused = false;\r\n        emit Unpaused(msg.sender);\r\n    }\r\n\r\n    // --- Admin setters ---\r\n    function setFeeAddresses(address _platformFeeAddr, address _lenderPoolIncomeAddr) external onlyAdmin {\r\n        require(_platformFeeAddr != address(0) && _lenderPoolIncomeAddr != address(0), \"LoanManager: zero addr\");\r\n        platformFeeAddress = _platformFeeAddr;\r\n        lenderPoolIncomeAddress = _lenderPoolIncomeAddr;\r\n    }\r\n\r\n    function setMerchantFeeBps(uint256 _bps) external onlyAdmin {\r\n        require(_bps <= 2000, \"LoanManager: max 20%\");\r\n        merchantFeeBps = _bps;\r\n    }\r\n\r\n    function setPlatformAndLenderFeeSplits(uint256 _platformBps, uint256 _lenderBps) external onlyAdmin {\r\n        require(_platformBps + _lenderBps == merchantFeeBps, \"LoanManager: split mismatch\");\r\n        platformFeeOfTotalBps = _platformBps;\r\n        lenderIncomeOfTotalBps = _lenderBps;\r\n    }\r\n\r\n    // --- Loan request & approval ---\r\n    function requestLoan(address tokenToBorrow, uint256 requestedAmount) external whenNotPaused {\r\n        require(tokenToBorrow != address(0), \"LoanManager: zero token\");\r\n        require(!loans[msg.sender].active, \"LoanManager: one loan at a time\");\r\n\r\n        uint16 score = creditNFT.getCreditScoreByBorrower(msg.sender);\r\n        uint256 nftLimit = creditNFT.getCreditLimitByBorrower(msg.sender);\r\n\r\n        require(score > 0, \"LoanManager: invalid score\");\r\n        require(requestedAmount > 0 && requestedAmount <= nftLimit, \"LoanManager: exceeds credit limit\");\r\n\r\n        uint256 vaultBalance = vault.getVaultBalance(msg.sender, tokenToBorrow);\r\n        uint256 requiredCollateral = (requestedAmount * 34) / 10000;\r\n        require(vaultBalance >= requiredCollateral, \"LoanManager: insufficient collateral\");\r\n        //ITRC20(tokenToBorrow).transferFrom(msg.sender, address(liquidityPool), requiredCollateral);\r\n\r\n        // Low-level TRC20 transferFrom\r\n        /*(bool success, bytes memory data) = tokenToBorrow.call(\r\n            abi.encodeWithSelector(ITRC20(tokenToBorrow).transferFrom.selector, msg.sender, address(this), amount)\r\n        );\r\n        require(success && (data.length == 0 || abi.decode(data, (bool))), \"transfer failed\");\r\n        */\r\n\r\n        emit LoanRequested(msg.sender, requiredCollateral);\r\n    }\r\n\r\n    function approveAndDisburse(\r\n        address borrower,\r\n        address tokenToBorrow,\r\n        uint256 totalAmount,\r\n        uint256 depositAmount,\r\n        uint256 fee,\r\n        address merchantAddr\r\n    ) external onlyCreditOfficerOrAdmin nonReentrant whenNotPaused {\r\n        require(!_isPrivileged(borrower), \"Privileged cannot borrow\");\r\n        require(borrower != address(0) && merchantAddr != address(0), \"Zero addr\");\r\n        require(!loans[borrower].active, \"Existing loan\");\r\n        require(totalAmount > 0, \"Zero amount\");\r\n\r\n        uint16 score = creditNFT.getCreditScoreByBorrower(borrower);\r\n        uint256 nftLimit = creditNFT.getCreditLimitByBorrower(borrower);\r\n        require(score > 0 && totalAmount <= nftLimit, \"Invalid amount\");\r\n\r\n        uint256 vaultBalance = vault.getVaultBalance(borrower, tokenToBorrow);\r\n        require(vaultBalance >= depositAmount, \"Vault: insufficient balance\");\r\n\r\n        uint256 borrowerPart = (totalAmount * 34) / 10000;\r\n        uint256 lenderPart = totalAmount - borrowerPart;\r\n        uint256 merchantSettleAmt = totalAmount - fee - depositAmount;\r\n        uint256 settleAmount = depositAmount + merchantSettleAmt;\r\n\r\n        // Sweep collateral from vault to merchant\r\n        ILoanVaultCoreV3.SweepParams memory p = ILoanVaultCoreV3.SweepParams({\r\n            borrower: borrower,\r\n            tokenToBorrow: tokenToBorrow,\r\n            merchantAddr: merchantAddr,\r\n            depositAmount: depositAmount\r\n        });\r\n        vault.sweepCollateral(p);\r\n\r\n        // Pull lender funds from liquidity pool\r\n        if (lenderPart > 0) {\r\n            liquidityPool.pullFunds(tokenToBorrow, merchantAddr, merchantSettleAmt);\r\n        }\r\n\r\n        // Record loan\r\n        Loan storage L = loans[borrower];\r\n        L.borrower = borrower;\r\n        L.token = tokenToBorrow;\r\n        L.merchant = merchantAddr;\r\n        L.principal = totalAmount;\r\n        L.outstanding = totalAmount - depositAmount;\r\n        L.startedAt = block.timestamp;\r\n        L.installmentsPaid = depositAmount;\r\n        L.fee = fee;\r\n        L.active = true;\r\n\r\n        if (!hasLoan[L.borrower]) {\r\n            hasLoan[L.borrower] = true;\r\n            borrowers.push(L.borrower);\r\n        }\r\n        \r\n\r\n        emit LoanApproved(borrower, totalAmount, tokenToBorrow, merchantAddr,settleAmount);\r\n    }\r\n\r\n    // --- Repayments ---\r\n    function repay(address token, uint256 amount) external nonReentrant whenNotPaused {\r\n        require(amount > 0, \"Zero amount\");\r\n        Loan storage L = loans[msg.sender];\r\n        require(L.active && token == L.token, \"Invalid loan/token\");\r\n\r\n        uint256 payAmount = amount > L.outstanding ? L.outstanding : amount;\r\n        //ITRC20(token).transferFrom(msg.sender, address(liquidityPool), payAmount);\r\n\r\n         // Low-level TRC20 transferFrom\r\n        (bool success, bytes memory data) = token.call(\r\n            abi.encodeWithSelector(ITRC20(token).transferFrom.selector, msg.sender, address(liquidityPool), payAmount)\r\n        );\r\n        require(success && (data.length == 0 || abi.decode(data, (bool))), \"transfer failed\");\r\n\r\n        L.outstanding -= payAmount;\r\n        L.installmentsPaid += payAmount;\r\n        emit BorrowerRepayment(msg.sender, token, payAmount);\r\n\r\n        if (L.outstanding == 0) {\r\n            L.active = false;\r\n            emit LoanRepaid(msg.sender);\r\n        }\r\n    }\r\n\r\n    // --- Keeper/Admin liquidation ---\r\n    function liquidateDue(address borrower, uint256 amountNeeded) external nonReentrant whenNotPaused {\r\n        require(accessControl.isKeeper(msg.sender) || accessControl.isAdmin(msg.sender), \"Unauthorized\");\r\n        Loan storage L = loans[borrower];\r\n        require(L.active, \"No active loan\");\r\n\r\n        if (amountNeeded >= L.outstanding) {\r\n            L.outstanding = 0;\r\n            L.active = false;\r\n            emit LoanRepaid(borrower);\r\n        } else {\r\n            L.outstanding -= amountNeeded;\r\n        }\r\n    }\r\n\r\n    // --- Loan getters ---\r\n    function getLoanDetails(address borrower) external view returns (\r\n        address loanBorrower,\r\n        address token,\r\n        address merchant,\r\n        uint256 principal,\r\n        uint256 outstanding,\r\n        uint256 startedAt,\r\n        uint256 installmentsPaid,\r\n        uint256 fee,\r\n        bool active\r\n    ) {\r\n        Loan memory L = loans[borrower];\r\n        return (L.borrower, L.token, L.merchant, L.principal, L.outstanding, L.startedAt, L.installmentsPaid, L.fee, L.active);\r\n    }\r\n\r\n    function outstandingOf(address borrower) external view returns (uint256) {\r\n        return loans[borrower].outstanding;\r\n    }\r\n\r\n    function _isPrivileged(address user) internal view returns (bool) {\r\n        return accessControl.isAdmin(user) || accessControl.isCreditOfficer(user);\r\n    }\r\n\r\n    /// @notice Aggregate loan statistics (gas heavy if many loans)\r\n    function getLoanStats()\r\n        external\r\n        view\r\n        returns (\r\n            uint256 totalPrincipal,\r\n            uint256 totalOutstanding,\r\n            uint256 totalPaid,\r\n            uint256 totalFees,\r\n            uint256 activeCount,\r\n            uint256 totalCount\r\n        )\r\n    {\r\n        totalCount = borrowers.length;\r\n\r\n        for (uint256 i = 0; i < totalCount; i++) {\r\n            Loan storage L = loans[borrowers[i]];\r\n            totalPrincipal += L.principal;\r\n            totalOutstanding += L.outstanding;\r\n            totalPaid += L.installmentsPaid;\r\n            totalFees += L.fee;\r\n            if (L.active) activeCount++;\r\n        }\r\n    }\r\n\r\n    /// @notice Returns all borrower addresses\r\n    function getAllBorrowers() external view returns (address[] memory) {\r\n        return borrowers;\r\n    }\r\n\r\n\r\n}\r\n",
-  "sourcePath": "C:/workspace/tronbfpay/contracts/v3/LoanManagerV15.sol",
+  "bytecode": "0x6080346101ea57601f611e2b38819003918201601f19168301916001600160401b038311848410176101ee5780849260c0946040528339810103126101ea5761004781610202565b61005360208301610202565b9061006060408401610202565b61006c60608501610202565b9261008560a061007e60808801610202565b9601610202565b60015f5561032060055560646006556102bc600755926001600160a01b0316801515806101d8575b806101c6575b806101b4575b806101a2575b80610190575b1561014b57600180546001600160a01b03199081169290921790556002805482166001600160a01b0393841617905560038054821693831693909317909255600480546008805485169784169790971790965560098054909316938216939093179091556001600160a81b031990931691909216179055604051611c1490816102178239f35b60405162461bcd60e51b815260206004820152601960248201527f4c6f616e4d616e616765723a207a65726f2061646472657373000000000000006044820152606490fd5b506001600160a01b03841615156100c5565b506001600160a01b03861615156100bf565b506001600160a01b03851615156100b9565b506001600160a01b03831615156100b3565b506001600160a01b03821615156100ad565b5f80fd5b634e487b7160e01b5f52604160045260245ffd5b51906001600160a01b03821682036101ea5756fe6080806040526004361015610012575f80fd5b5f905f3560e01c90816311c84120146118995750806313007d551461187157806315c0c8321461185457806322867d78146115eb57806332abcdbe146115235780633f4ba83a1461149d5780634f98cded146114805780635c975abb1461145b578063665a11ca146114335780636a2df6471461140b57806373b4086b1461138557806377a1875a1461134a57806377e63a3c146112775780637c46499b14610f115780638456cb5914610e665780638d68861a14610e4957806392594d7914610e21578063aa4c7fad14610c3b578063b7f2458a14610b80578063d04d041c14610363578063e8a7da8e1461026c578063ed14834f14610243578063fbfa77cf1461021a5763fd4d9a3214610126575f80fd5b3461021757604036600319011261021757600435602435906024602060018060a01b036001541660405192838092630935e01b60e21b82523360048301525afa801561020c5761017d9185916101dd575b50611a71565b6101878282611b8b565b600554036101985760065560075580f35b60405162461bcd60e51b815260206004820152601b60248201527f4c6f616e4d616e616765723a2073706c6974206d69736d6174636800000000006044820152606490fd5b6101ff915060203d602011610205575b6101f78183611a37565b810190611a59565b5f610177565b503d6101ed565b6040513d86823e3d90fd5b80fd5b50346102175780600319360112610217576003546040516001600160a01b039091168152602090f35b50346102175780600319360112610217576008546040516001600160a01b039091168152602090f35b5034610217576020366003190112610217576001600160a01b0361028e6119b6565b168152600a602052604081206040519161012083019083821067ffffffffffffffff83111761034f575060405261034b61010060018060a01b038354169283855260018060a01b036001820154169485602082015260018060a01b0360028301541680604083015260038301548060608401526004840154908160808501526005850154928360a08601526006860154948560c082015260ff60086007890154988960e085015201541615159788910152604051998a998a6119e2565b0390f35b634e487b7160e01b81526041600452602490fd5b50346108435760c03660031901126108435761037d6119b6565b6103856119cc565b60a4356001600160a01b03811692916044359060643560843586850361084357600154604051638b7ac4d560e01b81523360048201526001600160a01b0390911695906020816024818a5afa908115610838575f91610b61575b508015610b11575b15610abb576103f960015f5414611ab6565b60025f5560045461041060ff8260a01c1615611b02565b604051630935e01b60e21b81526001600160a01b0389166004820181905297602082602481845afa918215610838575f92610a9a575b508115610a46575b50610a0157861515806109f8575b156109c757865f52600a60205260ff600860405f20015416610992578515906104858215611b44565b60405163032811f360e11b815260048101899052906001600160a01b0316602082602481845afa908115610838576024925f92610960575b506020906040519384809263cd75495160e01b82528d60048301525afa918215610838575f9261092a575b5061ffff161515908161091f575b50156108e9576003546040516355e6e1e760e11b81526001600160a01b03998a166004820152868a1660248201529816976020816044818c5afa80156108385785915f916108b4575b501061086f576022860290868204602214171561085b57612710610564910486611b7e565b93610578846105738589611b7e565b611b7e565b6105828186611b8b565b95604051608081019080821067ffffffffffffffff831117610847578c916040528a81526020810160018060a01b0386169c8d82526040830193845260608301928a8452813b1561084357604051631dd7c13960e01b815290516001600160a01b03908116600483015292518316602482015293519091166044840152905160648301525f908290608490829084905af180156108385761081d575b50908b939291610798575b505050859052600a6020526040882080546001600160a01b0319908116871782556001820180548216891790556002820180549091168917905560038101859055916106758186611b7e565b60048401554260058401556006830155600782015560088101805460ff1916600117905580546001600160a01b0316808852600c602052604088205460ff16156106f3575b50507f993fe0584e9b5abdcb2eb0582e7ccd65ceb33d252790cb08d51deabddcea1e649160409182519182526020820152a46001815580f35b8752600c60205260408720805460ff1916600117905554600b546001600160a01b0391909116906801000000000000000081101561078457917f993fe0584e9b5abdcb2eb0582e7ccd65ceb33d252790cb08d51deabddcea1e64939161076184600160409601600b55611b98565b819291549060031b91821b9160018060a01b03901b1916179055918193506106ba565b634e487b7160e01b88526041600452602488fd5b6002546001600160a01b0316803b156108195760405163201add9b60e01b81526001600160a01b039384166004820152939092166024840152604483015282908290606490829084905af1801561080e576107f5575b8080610629565b816107ff91611a37565b61080a57875f6107ee565b8780fd5b6040513d84823e3d90fd5b8480fd5b61082d919493929c505f90611a37565b5f9a9091925f61061e565b6040513d5f823e3d90fd5b5f80fd5b634e487b7160e01b5f52604160045260245ffd5b634e487b7160e01b5f52601160045260245ffd5b60405162461bcd60e51b815260206004820152601b60248201527f5661756c743a20696e73756666696369656e742062616c616e636500000000006044820152606490fd5b9150506020813d6020116108e1575b816108d060209383611a37565b81010312610843578490515f61053f565b3d91506108c3565b60405162461bcd60e51b815260206004820152600e60248201526d125b9d985b1a5908185b5bdd5b9d60921b6044820152606490fd5b90508611155f6104f6565b9091506020813d602011610958575b8161094660209383611a37565b8101031261084357519061ffff6104e8565b3d9150610939565b602091925061098490823d841161098b575b61097c8183611a37565b810190611bc4565b91906104bd565b503d610972565b60405162461bcd60e51b815260206004820152600d60248201526c22bc34b9ba34b733903637b0b760991b6044820152606490fd5b60405162461bcd60e51b81526020600482015260096024820152682d32b9379030b2323960b91b6044820152606490fd5b5088151561045c565b60405162461bcd60e51b815260206004820152601860248201527f50726976696c656765642063616e6e6f7420626f72726f7700000000000000006044820152606490fd5b6024915060209060405192838092638b7ac4d560e01b82528c60048301525afa908115610838575f91610a7b575b505f61044e565b610a94915060203d602011610205576101f78183611a37565b5f610a74565b610ab491925060203d602011610205576101f78183611a37565b905f610446565b60405162461bcd60e51b815260206004820152602860248201527f4c6f616e4d616e616765723a206e6f7420637265646974206f6666696365722060448201526737b91030b236b4b760c11b6064820152608490fd5b50604051630935e01b60e21b81523360048201526020816024818a5afa908115610838575f91610b42575b506103e7565b610b5b915060203d602011610205576101f78183611a37565b5f610b3c565b610b7a915060203d602011610205576101f78183611a37565b5f6103df565b34610843576020366003190112610843576004356024602060018060a01b036001541660405192838092630935e01b60e21b82523360048301525afa801561083857610bd2915f91610c1c5750611a71565b6107d08111610be057600555005b60405162461bcd60e51b81526020600482015260146024820152734c6f616e4d616e616765723a206d61782032302560601b6044820152606490fd5b610c35915060203d602011610205576101f78183611a37565b83610177565b3461084357604036600319011261084357610c546119b6565b60243590610c6560015f5414611ab6565b60025f55610c7b60ff60045460a01c1615611b02565b6001546040516335d2155560e11b8152336004820152906001600160a01b0316602082602481845afa918215610838575f92610e00575b508115610dab575b5015610d775760018060a01b031690815f52600a60205260405f2090600882019160ff83541615610d41576004018054909190808210610d2c5750505f905560ff1981541690557f314bd9beaed705e54938dcb29f8f4ccd8b4e9c766dd263b70acf7d5bd5f5da555f80a25b60015f55005b90919350610d3a9250611b7e565b9055610d26565b60405162461bcd60e51b815260206004820152600e60248201526d27379030b1ba34bb32903637b0b760911b6044820152606490fd5b60405162461bcd60e51b815260206004820152600c60248201526b155b985d5d1a1bdc9a5e995960a21b6044820152606490fd5b604051630935e01b60e21b81523360048201529150602090829060249082905afa908115610838575f91610de1575b5083610cba565b610dfa915060203d602011610205576101f78183611a37565b83610dda565b610e1a91925060203d602011610205576101f78183611a37565b9084610cb2565b34610843575f366003190112610843576009546040516001600160a01b039091168152602090f35b34610843575f366003190112610843576020600554604051908152f35b34610843575f36600319011261084357600154604051630935e01b60e21b815233600482015290602090829060249082906001600160a01b03165afa801561083857610eb8915f91610ef25750611a71565b6004805460ff60a01b1916600160a01b179055337f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a2585f80a2005b610f0b915060203d602011610205576101f78183611a37565b82610177565b3461084357604036600319011261084357610f2a6119b6565b602435600454610f4060ff8260a01c1615611b02565b6001600160a01b0383161561123257335f52600a60205260ff600860405f200154166111ed5760405163032811f360e11b8152336004820152906001600160a01b0316602082602481845afa908115610838576024925f926111cb575b506020906040519384809263cd75495160e01b82523360048301525afa918215610838575f92611195575b5061ffff16156111505781159081159081611145575b50156110f6576003546040516355e6e1e760e11b81523360048201526001600160a01b0394851660248201529360209185916044918391165afa928315610838575f936110c2575b5060228202918204602214171561085b576127109004809110611071576040519081527f06c22e520074f676b380b03ffba06f2ccf61e51cbeee2a4e084b80a19d2fc23760203392a2005b60405162461bcd60e51b8152602060048201526024808201527f4c6f616e4d616e616765723a20696e73756666696369656e7420636f6c6c6174604482015263195c985b60e21b6064820152608490fd5b9092506020813d6020116110ee575b816110de60209383611a37565b8101031261084357519183611026565b3d91506110d1565b60405162461bcd60e51b815260206004820152602160248201527f4c6f616e4d616e616765723a206578636565647320637265646974206c696d696044820152601d60fa1b6064820152608490fd5b905082111584610fde565b60405162461bcd60e51b815260206004820152601a60248201527f4c6f616e4d616e616765723a20696e76616c69642073636f72650000000000006044820152606490fd5b9091506020813d6020116111c3575b816111b160209383611a37565b8101031261084357519061ffff610fc8565b3d91506111a4565b60209192506111e690823d841161098b5761097c8183611a37565b9190610f9d565b60405162461bcd60e51b815260206004820152601f60248201527f4c6f616e4d616e616765723a206f6e65206c6f616e20617420612074696d65006044820152606490fd5b60405162461bcd60e51b815260206004820152601760248201527f4c6f616e4d616e616765723a207a65726f20746f6b656e0000000000000000006044820152606490fd5b34610843575f36600319011261084357600b545f908190818080805b8487106112bf5760c09650604051958652602086015260408501526060840152608083015260a0820152f35b949190956112cc81611b98565b60018060a01b0391549060031b1c165f52600a60205260ff600861132661131a61130e61130260405f209860038a015490611b8b565b9a600489015490611b8b565b9a600688015490611b8b565b94600787015490611b8b565b94015416611338575b60010195611293565b925f19811461085b576001019261132f565b34610843576020366003190112610843576001600160a01b0361136b6119b6565b165f52600a6020526020600460405f200154604051908152f35b34610843576020366003190112610843576001600160a01b036113a66119b6565b165f52600a60205260405f2060018060a01b0381541661034b60018060a01b036001840154169260018060a01b03600282015416906003810154600482015460058301549060068401549260ff600860078701549601541695604051998a998a6119e2565b34610843575f366003190112610843576004546040516001600160a01b039091168152602090f35b34610843575f366003190112610843576002546040516001600160a01b039091168152602090f35b34610843575f36600319011261084357602060ff60045460a01c166040519015158152f35b34610843575f366003190112610843576020600754604051908152f35b34610843575f36600319011261084357600154604051630935e01b60e21b815233600482015290602090829060249082906001600160a01b03165afa8015610838576114ef915f91610ef25750611a71565b6004805460ff60a01b19169055337f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa5f80a2005b34610843575f36600319011261084357604051806020600b5492838152018092600b5f527f0175b7a638427703f0dbe7bb9bbf987a2551717b34e79f33b5b1008d1fa01db9905f5b8181106115cc5750505081611581910382611a37565b604051918291602083019060208452518091526040830191905f5b8181106115aa575050500390f35b82516001600160a01b031684528594506020938401939092019160010161159c565b82546001600160a01b031684526020909301926001928301920161156b565b34610843576040366003190112610843576116046119b6565b60243561161460015f5414611ab6565b60025f5561162a60ff60045460a01c1615611b02565b611635811515611b44565b335f52600a60205260405f20600881019260ff8454168061183b575b15611801576004820180549093818111156117f95750915b6002546040516323b872dd60e01b602082019081523360248301526001600160a01b039092166044820152606480820186905281525f9182916116ad608482611a37565b519082865af13d156117f2573d67ffffffffffffffff811161084757604051906116e1601f8201601f191660200183611a37565b81523d5f602083013e5b816117c3575b501561178c57600690611705848654611b7e565b80955501611714838254611b8b565b90556040519182526001600160a01b03169033907f3af4119bfbfe5fad91d49964d41a50d53c558acd92d71e08b936ae3d5a0047fb90602090a3156117595760015f55005b805460ff19169055337f314bd9beaed705e54938dcb29f8f4ccd8b4e9c766dd263b70acf7d5bd5f5da555f80a280610d26565b60405162461bcd60e51b815260206004820152600f60248201526e1d1c985b9cd9995c8819985a5b1959608a1b6044820152606490fd5b80518015925082156117d8575b5050866116f1565b6117eb9250602080918301019101611a59565b86806117d0565b60606116eb565b905091611669565b60405162461bcd60e51b815260206004820152601260248201527124b73b30b634b2103637b0b717ba37b5b2b760711b6044820152606490fd5b5060018201546001600160a01b03828116911614611651565b34610843575f366003190112610843576020600654604051908152f35b34610843575f366003190112610843576001546040516001600160a01b039091168152602090f35b34610843576040366003190112610843576118b26119b6565b6118ba6119cc565b9160208160248160018060a01b0360015416630935e01b60e21b82523360048301525afa8015610838576118f4915f916119975750611a71565b6001600160a01b031680151580611985575b15611947576bffffffffffffffffffffffff60a01b600854161760085560018060a01b03166bffffffffffffffffffffffff60a01b60095416176009555f80f35b60405162461bcd60e51b81526020600482015260166024820152752637b0b726b0b730b3b2b91d103d32b9379030b2323960511b6044820152606490fd5b506001600160a01b0382161515611906565b6119b0915060203d602011610205576101f78183611a37565b84610177565b600435906001600160a01b038216820361084357565b602435906001600160a01b038216820361084357565b6001600160a01b039182168152918116602083015290911660408201526060810191909152608081019190915260a081019190915260c081019190915260e08101919091529015156101008201526101200190565b90601f8019910116810190811067ffffffffffffffff82111761084757604052565b90816020910312610843575180151581036108435790565b15611a7857565b60405162461bcd60e51b81526020600482015260166024820152752637b0b726b0b730b3b2b91d103737ba1030b236b4b760511b6044820152606490fd5b15611abd57565b60405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606490fd5b15611b0957565b60405162461bcd60e51b8152602060048201526013602482015272131bd85b93585b9859d95c8e881c185d5cd959606a1b6044820152606490fd5b15611b4b57565b60405162461bcd60e51b815260206004820152600b60248201526a16995c9bc8185b5bdd5b9d60aa1b6044820152606490fd5b9190820391821161085b57565b9190820180921161085b57565b600b54811015611bb057600b5f5260205f2001905f90565b634e487b7160e01b5f52603260045260245ffd5b90816020910312610843575161ffff81168103610843579056fea2646970667358221220b51245f5fe0668f8f6d39fc1328c35c148ea5e0df43b1a659f093c88be5ff53864736f6c634300081e0033",
+  "deployedBytecode": "0x6080806040526004361015610012575f80fd5b5f905f3560e01c90816311c84120146118995750806313007d551461187157806315c0c8321461185457806322867d78146115eb57806332abcdbe146115235780633f4ba83a1461149d5780634f98cded146114805780635c975abb1461145b578063665a11ca146114335780636a2df6471461140b57806373b4086b1461138557806377a1875a1461134a57806377e63a3c146112775780637c46499b14610f115780638456cb5914610e665780638d68861a14610e4957806392594d7914610e21578063aa4c7fad14610c3b578063b7f2458a14610b80578063d04d041c14610363578063e8a7da8e1461026c578063ed14834f14610243578063fbfa77cf1461021a5763fd4d9a3214610126575f80fd5b3461021757604036600319011261021757600435602435906024602060018060a01b036001541660405192838092630935e01b60e21b82523360048301525afa801561020c5761017d9185916101dd575b50611a71565b6101878282611b8b565b600554036101985760065560075580f35b60405162461bcd60e51b815260206004820152601b60248201527f4c6f616e4d616e616765723a2073706c6974206d69736d6174636800000000006044820152606490fd5b6101ff915060203d602011610205575b6101f78183611a37565b810190611a59565b5f610177565b503d6101ed565b6040513d86823e3d90fd5b80fd5b50346102175780600319360112610217576003546040516001600160a01b039091168152602090f35b50346102175780600319360112610217576008546040516001600160a01b039091168152602090f35b5034610217576020366003190112610217576001600160a01b0361028e6119b6565b168152600a602052604081206040519161012083019083821067ffffffffffffffff83111761034f575060405261034b61010060018060a01b038354169283855260018060a01b036001820154169485602082015260018060a01b0360028301541680604083015260038301548060608401526004840154908160808501526005850154928360a08601526006860154948560c082015260ff60086007890154988960e085015201541615159788910152604051998a998a6119e2565b0390f35b634e487b7160e01b81526041600452602490fd5b50346108435760c03660031901126108435761037d6119b6565b6103856119cc565b60a4356001600160a01b03811692916044359060643560843586850361084357600154604051638b7ac4d560e01b81523360048201526001600160a01b0390911695906020816024818a5afa908115610838575f91610b61575b508015610b11575b15610abb576103f960015f5414611ab6565b60025f5560045461041060ff8260a01c1615611b02565b604051630935e01b60e21b81526001600160a01b0389166004820181905297602082602481845afa918215610838575f92610a9a575b508115610a46575b50610a0157861515806109f8575b156109c757865f52600a60205260ff600860405f20015416610992578515906104858215611b44565b60405163032811f360e11b815260048101899052906001600160a01b0316602082602481845afa908115610838576024925f92610960575b506020906040519384809263cd75495160e01b82528d60048301525afa918215610838575f9261092a575b5061ffff161515908161091f575b50156108e9576003546040516355e6e1e760e11b81526001600160a01b03998a166004820152868a1660248201529816976020816044818c5afa80156108385785915f916108b4575b501061086f576022860290868204602214171561085b57612710610564910486611b7e565b93610578846105738589611b7e565b611b7e565b6105828186611b8b565b95604051608081019080821067ffffffffffffffff831117610847578c916040528a81526020810160018060a01b0386169c8d82526040830193845260608301928a8452813b1561084357604051631dd7c13960e01b815290516001600160a01b03908116600483015292518316602482015293519091166044840152905160648301525f908290608490829084905af180156108385761081d575b50908b939291610798575b505050859052600a6020526040882080546001600160a01b0319908116871782556001820180548216891790556002820180549091168917905560038101859055916106758186611b7e565b60048401554260058401556006830155600782015560088101805460ff1916600117905580546001600160a01b0316808852600c602052604088205460ff16156106f3575b50507f993fe0584e9b5abdcb2eb0582e7ccd65ceb33d252790cb08d51deabddcea1e649160409182519182526020820152a46001815580f35b8752600c60205260408720805460ff1916600117905554600b546001600160a01b0391909116906801000000000000000081101561078457917f993fe0584e9b5abdcb2eb0582e7ccd65ceb33d252790cb08d51deabddcea1e64939161076184600160409601600b55611b98565b819291549060031b91821b9160018060a01b03901b1916179055918193506106ba565b634e487b7160e01b88526041600452602488fd5b6002546001600160a01b0316803b156108195760405163201add9b60e01b81526001600160a01b039384166004820152939092166024840152604483015282908290606490829084905af1801561080e576107f5575b8080610629565b816107ff91611a37565b61080a57875f6107ee565b8780fd5b6040513d84823e3d90fd5b8480fd5b61082d919493929c505f90611a37565b5f9a9091925f61061e565b6040513d5f823e3d90fd5b5f80fd5b634e487b7160e01b5f52604160045260245ffd5b634e487b7160e01b5f52601160045260245ffd5b60405162461bcd60e51b815260206004820152601b60248201527f5661756c743a20696e73756666696369656e742062616c616e636500000000006044820152606490fd5b9150506020813d6020116108e1575b816108d060209383611a37565b81010312610843578490515f61053f565b3d91506108c3565b60405162461bcd60e51b815260206004820152600e60248201526d125b9d985b1a5908185b5bdd5b9d60921b6044820152606490fd5b90508611155f6104f6565b9091506020813d602011610958575b8161094660209383611a37565b8101031261084357519061ffff6104e8565b3d9150610939565b602091925061098490823d841161098b575b61097c8183611a37565b810190611bc4565b91906104bd565b503d610972565b60405162461bcd60e51b815260206004820152600d60248201526c22bc34b9ba34b733903637b0b760991b6044820152606490fd5b60405162461bcd60e51b81526020600482015260096024820152682d32b9379030b2323960b91b6044820152606490fd5b5088151561045c565b60405162461bcd60e51b815260206004820152601860248201527f50726976696c656765642063616e6e6f7420626f72726f7700000000000000006044820152606490fd5b6024915060209060405192838092638b7ac4d560e01b82528c60048301525afa908115610838575f91610a7b575b505f61044e565b610a94915060203d602011610205576101f78183611a37565b5f610a74565b610ab491925060203d602011610205576101f78183611a37565b905f610446565b60405162461bcd60e51b815260206004820152602860248201527f4c6f616e4d616e616765723a206e6f7420637265646974206f6666696365722060448201526737b91030b236b4b760c11b6064820152608490fd5b50604051630935e01b60e21b81523360048201526020816024818a5afa908115610838575f91610b42575b506103e7565b610b5b915060203d602011610205576101f78183611a37565b5f610b3c565b610b7a915060203d602011610205576101f78183611a37565b5f6103df565b34610843576020366003190112610843576004356024602060018060a01b036001541660405192838092630935e01b60e21b82523360048301525afa801561083857610bd2915f91610c1c5750611a71565b6107d08111610be057600555005b60405162461bcd60e51b81526020600482015260146024820152734c6f616e4d616e616765723a206d61782032302560601b6044820152606490fd5b610c35915060203d602011610205576101f78183611a37565b83610177565b3461084357604036600319011261084357610c546119b6565b60243590610c6560015f5414611ab6565b60025f55610c7b60ff60045460a01c1615611b02565b6001546040516335d2155560e11b8152336004820152906001600160a01b0316602082602481845afa918215610838575f92610e00575b508115610dab575b5015610d775760018060a01b031690815f52600a60205260405f2090600882019160ff83541615610d41576004018054909190808210610d2c5750505f905560ff1981541690557f314bd9beaed705e54938dcb29f8f4ccd8b4e9c766dd263b70acf7d5bd5f5da555f80a25b60015f55005b90919350610d3a9250611b7e565b9055610d26565b60405162461bcd60e51b815260206004820152600e60248201526d27379030b1ba34bb32903637b0b760911b6044820152606490fd5b60405162461bcd60e51b815260206004820152600c60248201526b155b985d5d1a1bdc9a5e995960a21b6044820152606490fd5b604051630935e01b60e21b81523360048201529150602090829060249082905afa908115610838575f91610de1575b5083610cba565b610dfa915060203d602011610205576101f78183611a37565b83610dda565b610e1a91925060203d602011610205576101f78183611a37565b9084610cb2565b34610843575f366003190112610843576009546040516001600160a01b039091168152602090f35b34610843575f366003190112610843576020600554604051908152f35b34610843575f36600319011261084357600154604051630935e01b60e21b815233600482015290602090829060249082906001600160a01b03165afa801561083857610eb8915f91610ef25750611a71565b6004805460ff60a01b1916600160a01b179055337f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a2585f80a2005b610f0b915060203d602011610205576101f78183611a37565b82610177565b3461084357604036600319011261084357610f2a6119b6565b602435600454610f4060ff8260a01c1615611b02565b6001600160a01b0383161561123257335f52600a60205260ff600860405f200154166111ed5760405163032811f360e11b8152336004820152906001600160a01b0316602082602481845afa908115610838576024925f926111cb575b506020906040519384809263cd75495160e01b82523360048301525afa918215610838575f92611195575b5061ffff16156111505781159081159081611145575b50156110f6576003546040516355e6e1e760e11b81523360048201526001600160a01b0394851660248201529360209185916044918391165afa928315610838575f936110c2575b5060228202918204602214171561085b576127109004809110611071576040519081527f06c22e520074f676b380b03ffba06f2ccf61e51cbeee2a4e084b80a19d2fc23760203392a2005b60405162461bcd60e51b8152602060048201526024808201527f4c6f616e4d616e616765723a20696e73756666696369656e7420636f6c6c6174604482015263195c985b60e21b6064820152608490fd5b9092506020813d6020116110ee575b816110de60209383611a37565b8101031261084357519183611026565b3d91506110d1565b60405162461bcd60e51b815260206004820152602160248201527f4c6f616e4d616e616765723a206578636565647320637265646974206c696d696044820152601d60fa1b6064820152608490fd5b905082111584610fde565b60405162461bcd60e51b815260206004820152601a60248201527f4c6f616e4d616e616765723a20696e76616c69642073636f72650000000000006044820152606490fd5b9091506020813d6020116111c3575b816111b160209383611a37565b8101031261084357519061ffff610fc8565b3d91506111a4565b60209192506111e690823d841161098b5761097c8183611a37565b9190610f9d565b60405162461bcd60e51b815260206004820152601f60248201527f4c6f616e4d616e616765723a206f6e65206c6f616e20617420612074696d65006044820152606490fd5b60405162461bcd60e51b815260206004820152601760248201527f4c6f616e4d616e616765723a207a65726f20746f6b656e0000000000000000006044820152606490fd5b34610843575f36600319011261084357600b545f908190818080805b8487106112bf5760c09650604051958652602086015260408501526060840152608083015260a0820152f35b949190956112cc81611b98565b60018060a01b0391549060031b1c165f52600a60205260ff600861132661131a61130e61130260405f209860038a015490611b8b565b9a600489015490611b8b565b9a600688015490611b8b565b94600787015490611b8b565b94015416611338575b60010195611293565b925f19811461085b576001019261132f565b34610843576020366003190112610843576001600160a01b0361136b6119b6565b165f52600a6020526020600460405f200154604051908152f35b34610843576020366003190112610843576001600160a01b036113a66119b6565b165f52600a60205260405f2060018060a01b0381541661034b60018060a01b036001840154169260018060a01b03600282015416906003810154600482015460058301549060068401549260ff600860078701549601541695604051998a998a6119e2565b34610843575f366003190112610843576004546040516001600160a01b039091168152602090f35b34610843575f366003190112610843576002546040516001600160a01b039091168152602090f35b34610843575f36600319011261084357602060ff60045460a01c166040519015158152f35b34610843575f366003190112610843576020600754604051908152f35b34610843575f36600319011261084357600154604051630935e01b60e21b815233600482015290602090829060249082906001600160a01b03165afa8015610838576114ef915f91610ef25750611a71565b6004805460ff60a01b19169055337f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa5f80a2005b34610843575f36600319011261084357604051806020600b5492838152018092600b5f527f0175b7a638427703f0dbe7bb9bbf987a2551717b34e79f33b5b1008d1fa01db9905f5b8181106115cc5750505081611581910382611a37565b604051918291602083019060208452518091526040830191905f5b8181106115aa575050500390f35b82516001600160a01b031684528594506020938401939092019160010161159c565b82546001600160a01b031684526020909301926001928301920161156b565b34610843576040366003190112610843576116046119b6565b60243561161460015f5414611ab6565b60025f5561162a60ff60045460a01c1615611b02565b611635811515611b44565b335f52600a60205260405f20600881019260ff8454168061183b575b15611801576004820180549093818111156117f95750915b6002546040516323b872dd60e01b602082019081523360248301526001600160a01b039092166044820152606480820186905281525f9182916116ad608482611a37565b519082865af13d156117f2573d67ffffffffffffffff811161084757604051906116e1601f8201601f191660200183611a37565b81523d5f602083013e5b816117c3575b501561178c57600690611705848654611b7e565b80955501611714838254611b8b565b90556040519182526001600160a01b03169033907f3af4119bfbfe5fad91d49964d41a50d53c558acd92d71e08b936ae3d5a0047fb90602090a3156117595760015f55005b805460ff19169055337f314bd9beaed705e54938dcb29f8f4ccd8b4e9c766dd263b70acf7d5bd5f5da555f80a280610d26565b60405162461bcd60e51b815260206004820152600f60248201526e1d1c985b9cd9995c8819985a5b1959608a1b6044820152606490fd5b80518015925082156117d8575b5050866116f1565b6117eb9250602080918301019101611a59565b86806117d0565b60606116eb565b905091611669565b60405162461bcd60e51b815260206004820152601260248201527124b73b30b634b2103637b0b717ba37b5b2b760711b6044820152606490fd5b5060018201546001600160a01b03828116911614611651565b34610843575f366003190112610843576020600654604051908152f35b34610843575f366003190112610843576001546040516001600160a01b039091168152602090f35b34610843576040366003190112610843576118b26119b6565b6118ba6119cc565b9160208160248160018060a01b0360015416630935e01b60e21b82523360048301525afa8015610838576118f4915f916119975750611a71565b6001600160a01b031680151580611985575b15611947576bffffffffffffffffffffffff60a01b600854161760085560018060a01b03166bffffffffffffffffffffffff60a01b60095416176009555f80f35b60405162461bcd60e51b81526020600482015260166024820152752637b0b726b0b730b3b2b91d103d32b9379030b2323960511b6044820152606490fd5b506001600160a01b0382161515611906565b6119b0915060203d602011610205576101f78183611a37565b84610177565b600435906001600160a01b038216820361084357565b602435906001600160a01b038216820361084357565b6001600160a01b039182168152918116602083015290911660408201526060810191909152608081019190915260a081019190915260c081019190915260e08101919091529015156101008201526101200190565b90601f8019910116810190811067ffffffffffffffff82111761084757604052565b90816020910312610843575180151581036108435790565b15611a7857565b60405162461bcd60e51b81526020600482015260166024820152752637b0b726b0b730b3b2b91d103737ba1030b236b4b760511b6044820152606490fd5b15611abd57565b60405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606490fd5b15611b0957565b60405162461bcd60e51b8152602060048201526013602482015272131bd85b93585b9859d95c8e881c185d5cd959606a1b6044820152606490fd5b15611b4b57565b60405162461bcd60e51b815260206004820152600b60248201526a16995c9bc8185b5bdd5b9d60aa1b6044820152606490fd5b9190820391821161085b57565b9190820180921161085b57565b600b54811015611bb057600b5f5260205f2001905f90565b634e487b7160e01b5f52603260045260245ffd5b90816020910312610843575161ffff81168103610843579056fea2646970667358221220b51245f5fe0668f8f6d39fc1328c35c148ea5e0df43b1a659f093c88be5ff53864736f6c634300081e0033",
+  "sourceMap": "1287:11089:2:-:0;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;:::i;:::-;;;;;;;;;:::i;:::-;;;;:::i;:::-;308:1:1;-1:-1:-1;1287:11089:2;1635:3;;1287:11089;1684:3;;1287:11089;1734:3;;1287:11089;;-1:-1:-1;;;;;1287:11089:2;3567:28;;;;:60;;-1:-1:-1;3567:101:2;;;-1:-1:-1;3567:129:2;;;-1:-1:-1;3567:180:2;;;-1:-1:-1;3567:219:2;;;-1:-1:-1;1287:11089:2;;;;;;-1:-1:-1;;;;;;1287:11089:2;;;;;;;;;3903:46;1287:11089;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;3960:32;1287:11089;;;;;;;;;;;;;;4003:44;1287:11089;;4058:37;1287:11089;;;;;;;;;;;;;;4106:47;1287:11089;;;;;;;;;;;;;;;-1:-1:-1;;;;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;1684:3;;1287:11089;3567:219;-1:-1:-1;;;;;;1287:11089:2;;3751:35;;3567:219;;:180;-1:-1:-1;;;;;;1287:11089:2;;3717:30;;3567:180;;:129;-1:-1:-1;;;;;;1287:11089:2;;3672:24;;3567:129;;:101;-1:-1:-1;;;;;;1287:11089:2;;3648:20;;3567:101;;:60;-1:-1:-1;;;;;;1287:11089:2;;3599:28;;3567:60;;1287:11089;-1:-1:-1;1287:11089:2;;;;;;-1:-1:-1;1287:11089:2;;;;;-1:-1:-1;1287:11089:2;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;:::o",
+  "deployedSourceMap": "1287:11089:2:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;2776:33;;2798:10;1287:11089;2776:33;;1287:11089;2776:33;;;;;;2768:68;2776:33;;;;;1287:11089;2768:68;;:::i;:::-;5102:25;;;;:::i;:::-;5131:14;1287:11089;5102:43;1287:11089;;5188:36;352:1:1;5235:35:2;352:1:1;1287:11089:2;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;2776:33;;;;1287:11089;2776:33;1287:11089;2776:33;;;;;;;;:::i;:::-;;;;;:::i;:::-;;;;;;;;;;1287:11089;;;;;;;;;;;;;;;;;;;;;;;;;1455:29;1287:11089;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;1744:33;1287:11089;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;-1:-1:-1;;;;;1287:11089:2;;:::i;:::-;;;;11007:5;1287:11089;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;:::i;:::-;;;:::i;:::-;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;3072:41:2;;3102:10;1287:11089;3072:41;;1287:11089;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;3072:41;;;;;;;1287:11089;3072:41;;;1287:11089;3072:78;;;;;1287:11089;;;;442:67:1;1287:11089:2;;;450:23:1;442:67;:::i;:::-;352:1;1287:11089:2;352:1:1;1287:11089:2;;3267:39;1287:11089;;;;;3275:7;3267:39;:::i;:::-;1287:11089;;-1:-1:-1;;;11385:27:2;;-1:-1:-1;;;;;1287:11089:2;;;11385:27;;1287:11089;;;;;;;;11385:27;;;;;;;;1287:11089;11385:27;;;1287:11089;11385:66;;;;;1287:11089;6955:24;1287:11089;;7027:22;;;:52;;;1287:11089;;;;;;;7113:5;1287:11089;;;7113:22;1287:11089;;;7113:22;1287:11089;;;;7172:15;;;7164:39;7172:15;;7164:39;:::i;:::-;1287:11089;;-1:-1:-1;;;7231:44:2;;1287:11089;7231:44;;1287:11089;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;7231:44;;;;;;;1287:11089;7231:44;1287:11089;7231:44;;;1287:11089;;;;;;;;;;;;;7305:44;;;1287:11089;7305:44;;1287:11089;7305:44;;;;;;;1287:11089;7305:44;;;1287:11089;;;;7368:9;;:36;;;;1287:11089;;;;;7459:5;1287:11089;;;-1:-1:-1;;;7459:46:2;;-1:-1:-1;;;;;1287:11089:2;;;;7459:46;;1287:11089;;;;;;;;;;;;;;;;7459:46;;;;;;;;1287:11089;7459:46;;;1287:11089;7524:29;;1287:11089;;7636:2;1287:11089;;;;;;7636:2;1287:11089;;;;;7642:5;7679:26;1287:11089;;7679:26;;:::i;:::-;7744:17;:33;:17;;;;;:::i;:::-;:33;:::i;:::-;7811;;;;:::i;:::-;1287:11089;;;;;;;;;;;;;;;;;;;;;;;;7949:201;;1287:11089;;;;;;;;;;;;7949:201;;1287:11089;;;;7949:201;;1287:11089;;;;8161:24;;;;;1287:11089;;-1:-1:-1;;;8161:24:2;;1287:11089;;-1:-1:-1;;;;;1287:11089:2;;;;8161:24;;1287:11089;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8161:24;;;;;;;;1287:11089;8252:14;;;;;;8248:118;;1287:11089;-1:-1:-1;;;1287:11089:2;;;7113:5;1287:11089;;;;;;;-1:-1:-1;;;;;;1287:11089:2;;;;;;;-1:-1:-1;8477:7:2;;1287:11089;;;;;;;;352:1:1;8511:10:2;;1287:11089;;;;;;;;;7459:5;8547:11;;352:1:1;;;1287:11089:2;8599:27;1287:11089;8547:11;8599:27;:::i;:::-;1287:11089;8583:13;;352:1:1;8651:15:2;8637:11;;;352:1:1;8677:18:2;;;352:1:1;8722:5:2;;;352:1:1;7113:22:2;8744:8;;1287:11089;;-1:-1:-1;;1287:11089:2;;;;;;;-1:-1:-1;;;;;1287:11089:2;;;;8777:7;1287:11089;;;;;;;;8776:20;8772:120;;1287:11089;;;8919:77;1287:11089;;;;;;;;;;;;8919:77;1287:11089;352:1:1;;1287:11089:2;;8772:120;1287:11089;;8777:7;1287:11089;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;8854:9;1287:11089;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;8919:77;1287:11089;;;;;;;;8854:9;1287:11089;;:::i;:::-;;;;;;7459:5;1287:11089;;;;;;;;;;;;;;;;;8772:120;;;;;;1287:11089;-1:-1:-1;;;1287:11089:2;;;;;;;;8248:118;352:1:1;1287:11089:2;-1:-1:-1;;;;;1287:11089:2;8283:71;;;;;1287:11089;;-1:-1:-1;;;8283:71:2;;-1:-1:-1;;;;;1287:11089:2;;;;8283:71;;1287:11089;;;;;;;;;;;;;;;;;;;;;;;8283:71;;;;;;;;8248:118;;;;;8283:71;;;;;:::i;:::-;1287:11089;;8283:71;;;;1287:11089;;;;8283:71;1287:11089;;;;;;;;;8283:71;1287:11089;;;8161:24;;;;;;;;1287:11089;8161:24;;:::i;:::-;1287:11089;8161:24;;;;;;;;1287:11089;;;;;;;;;8161:24;1287:11089;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;7459:46;;;;1287:11089;7459:46;;1287:11089;7459:46;;;;;;1287:11089;7459:46;;;:::i;:::-;;;1287:11089;;;;;;;7459:46;;;;;;-1:-1:-1;7459:46:2;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;7368:36;7381:23;;;;;7368:36;;;7305:44;;;;1287:11089;7305:44;;1287:11089;7305:44;;;;;;1287:11089;7305:44;;;:::i;:::-;;;1287:11089;;;;;;;7305:44;;;;;-1:-1:-1;7305:44:2;;7231;1287:11089;7231:44;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::i;:::-;;;;;;;;;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;7027:52;7053:26;;;;7027:52;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;11385:66;1287:11089;;;;;;;;;;;;;;11416:35;;;1287:11089;11416:35;;1287:11089;11416:35;;;;;;;1287:11089;11416:35;;;11385:66;;;;;11416:35;;;;1287:11089;11416:35;1287:11089;11416:35;;;;;;;:::i;:::-;;;;11385:27;;;;;1287:11089;11385:27;1287:11089;11385:27;;;;;;;:::i;:::-;;;;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;3072:78;-1:-1:-1;1287:11089:2;;-1:-1:-1;;;3117:33:2;;3102:10;1287:11089;3117:33;;1287:11089;;;;;3117:33;;;;;;;;1287:11089;3117:33;;;3072:78;;;;3117:33;;;;1287:11089;3117:33;1287:11089;3117:33;;;;;;;:::i;:::-;;;;3072:41;;;;1287:11089;3072:41;1287:11089;3072:41;;;;;;;:::i;:::-;;;;1287:11089;;;;;;-1:-1:-1;;1287:11089:2;;;;;;2776:33;1287:11089;;;;;;;;;;;;;;;;;;2776:33;;2798:10;1287:11089;2776:33;;1287:11089;2776:33;;;;;;2768:68;2776:33;1287:11089;2776:33;;;2768:68;;:::i;:::-;4906:4;4898:12;;1287:11089;;4946:21;352:1:1;1287:11089:2;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;2776:33;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;2776:33;;;;1287:11089;2776:33;1287:11089;2776:33;;;;;;;:::i;:::-;;;;1287:11089;;;;;;-1:-1:-1;;1287:11089:2;;;;;;:::i;:::-;;;;442:67:1;1287:11089:2;;;450:23:1;442:67;:::i;:::-;352:1;1287:11089:2;352:1:1;3267:39:2;1287:11089;;;;;;3275:7;3267:39;:::i;:::-;1287:11089;;;;-1:-1:-1;;;10215:34:2;;10238:10;1287:11089;10215:34;;1287:11089;;-1:-1:-1;;;;;1287:11089:2;;;;;;10215:34;;;;;;;1287:11089;10215:34;;;1287:11089;10215:71;;;;;1287:11089;;;;;;;;;;;;;;;10331:5;1287:11089;;;;;10365:8;;;;1287:11089;;;;;;;;;10425:13;1287:11089;;10425:13;;1287:11089;10409:29;;;;;352:1:1;;1287:11089:2;352:1:1;;1287:11089:2;;;;;;;10523:20;1287:11089;10523:20;;10405:212;1287:11089;;352:1:1;1287:11089:2;10405:212;10576:29;;;;;;;;:::i;:::-;352:1:1;;10405:212:2;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;10215:71;1287:11089;;-1:-1:-1;;;10253:33:2;;10238:10;1287:11089;10253:33;;1287:11089;;-1:-1:-1;1287:11089:2;;;;;;;;10253:33;;;;;;;1287:11089;10253:33;;;10215:71;;;;;10253:33;;;;1287:11089;10253:33;1287:11089;10253:33;;;;;;;:::i;:::-;;;;10215:34;;;;;1287:11089;10215:34;1287:11089;10215:34;;;;;;;:::i;:::-;;;;;1287:11089;;;;;;-1:-1:-1;;1287:11089:2;;;;1784:38;1287:11089;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;1603:35;1287:11089;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;;;-1:-1:-1;;;2776:33:2;;2798:10;1287:11089;2776:33;;1287:11089;;;;;;2776:33;;1287:11089;;-1:-1:-1;;;;;1287:11089:2;2776:33;;;;;;2768:68;2776:33;1287:11089;2776:33;;;2768:68;;:::i;:::-;1287:11089;;;-1:-1:-1;;;;1287:11089:2;-1:-1:-1;;;1287:11089:2;;;2798:10;4302:18;-1:-1:-1;;4302:18:2;1287:11089;2776:33;;;;1287:11089;2776:33;1287:11089;2776:33;;;;;;;:::i;:::-;;;;1287:11089;;;;;;-1:-1:-1;;1287:11089:2;;;;;;:::i;:::-;;;;;3267:39;1287:11089;;;;;3275:7;3267:39;:::i;:::-;-1:-1:-1;;;;;1287:11089:2;;5437:27;1287:11089;;5518:10;1287:11089;;5512:5;1287:11089;;;5512:24;1287:11089;;;5512:24;1287:11089;;;;;;-1:-1:-1;;;5600:46:2;;5518:10;1287:11089;5600:46;;1287:11089;;-1:-1:-1;;;;;1287:11089:2;;;;;;5600:46;;;;;;;1287:11089;5600:46;1287:11089;5600:46;;;1287:11089;;;;;;;;;;;;;5676:46;;5518:10;1287:11089;5676:46;;1287:11089;5676:46;;;;;;;1287:11089;5676:46;;;1287:11089;;;;5743:9;1287:11089;;5802:19;;;;;:50;;;;1287:11089;;;;;5926:5;1287:11089;;;-1:-1:-1;;;5926:48:2;;5518:10;1287:11089;5926:48;;1287:11089;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;;;;5926:48;;;;;;;1287:11089;5926:48;;;1287:11089;;6033:2;1287:11089;;;;;6033:2;1287:11089;;;;;6039:5;1287:11089;;6063:34;;;1287:11089;;;;;;;6605:45;1287:11089;5518:10;6605:45;;1287:11089;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;5926:48;;;;1287:11089;5926:48;;1287:11089;5926:48;;;;;;1287:11089;5926:48;;;:::i;:::-;;;1287:11089;;;;;5926:48;;;;;;;-1:-1:-1;5926:48:2;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;5802:50;5825:27;;;;;5802:50;;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;5676:46;;;;1287:11089;5676:46;;1287:11089;5676:46;;;;;;1287:11089;5676:46;;;:::i;:::-;;;1287:11089;;;;;;;5676:46;;;;;-1:-1:-1;5676:46:2;;5600;1287:11089;5600:46;;;;;;;;;;;;;;;:::i;:::-;;;;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;11857:9;1287:11089;;;;;;;;;11906:14;;;;;;1287:11089;;;;;;;;;;;;;;;;;;;;;;;;;;;;;11922:3;11965:12;;;;;;;:::i;:::-;1287:11089;;;;;;;;;;;;;;11959:5;1287:11089;;;12168:8;12131:18;12085:31;12037:33;11993:29;1287:11089;;;12011:11;1287:11089;12011:11;;1287:11089;11993:29;;:::i;:::-;12057:13;1287:11089;12057:13;;1287:11089;12037:33;;:::i;:::-;12098:18;;;;1287:11089;12085:31;;:::i;:::-;12144:5;;;;1287:11089;12131:18;;:::i;:::-;12168:8;;1287:11089;;12164:27;;11922:3;1287:11089;;11891:13;;;12164:27;1287:11089;-1:-1:-1;;1287:11089:2;;;;;;;12164:27;;1287:11089;;;;;;-1:-1:-1;;1287:11089:2;;;;-1:-1:-1;;;;;1287:11089:2;;:::i;:::-;;;;11258:5;1287:11089;;;;;;;11258:27;1287:11089;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;-1:-1:-1;;;;;1287:11089:2;;:::i;:::-;;;;2102:37;1287:11089;;;;;;;;;;;;;;;;;;;2102:37;;;1287:11089;;;;;;;;2102:37;;;1287:11089;;2102:37;;;;1287:11089;;2102:37;;1287:11089;2102:37;;;1287:11089;2102:37;;;;1287:11089;2102:37;1287:11089;2102:37;;;;1287:11089;2102:37;;1287:11089;;;;;;;;;;:::i;:::-;;;;;;-1:-1:-1;;1287:11089:2;;;;;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;1413:35;1287:11089;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;1694:43;1287:11089;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;;;-1:-1:-1;;;2776:33:2;;2798:10;1287:11089;2776:33;;1287:11089;;;;;;2776:33;;1287:11089;;-1:-1:-1;;;;;1287:11089:2;2776:33;;;;;;2768:68;2776:33;1287:11089;2776:33;;;2768:68;;:::i;:::-;1287:11089;;;-1:-1:-1;;;;1287:11089:2;;;2798:10;4415:20;-1:-1:-1;;4415:20:2;1287:11089;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;;;12352:9;1287:11089;;;;;;;;12352:9;1287:11089;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;1287:11089:2;;;;;-1:-1:-1;1287:11089:2;;;;;;;;;;;;;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;:::i;:::-;;;442:67:1;1287:11089:2;;;450:23:1;442:67;:::i;:::-;352:1;1287:11089:2;352:1:1;3267:39:2;1287:11089;;;;;;3275:7;3267:39;:::i;:::-;9132:34;9140:10;;;9132:34;:::i;:::-;9200:10;1287:11089;;9194:5;1287:11089;;;;;9230:8;;;1287:11089;;;;;9230:28;;;1287:11089;;;;;9323:13;;1287:11089;;9323:13;;9314:22;;;;;;:47;;;352:1:1;1287:11089:2;;;-1:-1:-1;;;1287:11089:2;9563:106;;;;;9200:10;1287:11089;9563:106;;1287:11089;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;9563:106;;-1:-1:-1;;;;9563:106:2;1287:11089;;9563:106;:::i;:::-;9538:142;;;;;;1287:11089;;;;;;;;;;;;;;9563:106;1287:11089;;-1:-1:-1;;1287:11089:2;;;;;:::i;:::-;;;;;;;;;;9699:57;;;1287:11089;;;;;9826:18;1287:11089;9789:26;1287:11089;;;9789:26;:::i;:::-;352:1:1;;;9826:18:2;:31;1287:11089;;;9826:31;:::i;:::-;352:1:1;;1287:11089:2;;;;;-1:-1:-1;;;;;1287:11089:2;;9200:10;;9873:47;;1287:11089;;9873:47;9937:18;9933:109;;1287:11089;;352:1:1;1287:11089:2;9933:109;1287:11089;;-1:-1:-1;;1287:11089:2;;;9200:10;10008:22;-1:-1:-1;;10008:22:2;9933:109;;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;9699:57;1287:11089;;9711:16;;;-1:-1:-1;9711:44:2;;;;9699:57;;;;;;9711:44;9731:24;;;1287:11089;9731:24;;;;;;;;:::i;:::-;9711:44;;;;1287:11089;;;;9314:47;;;;;;1287:11089;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;9230:28;-1:-1:-1;1287:11089:2;9251:7;;1287:11089;-1:-1:-1;;;;;1287:11089:2;;;;;9242:16;9230:28;;1287:11089;;;;;;-1:-1:-1;;1287:11089:2;;;;;1645:42;1287:11089;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;-1:-1:-1;;1287:11089:2;;;;;;:::i;:::-;;;:::i;:::-;;;;;;;;;;;2776:13;1287:11089;;;;;2776:33;;2798:10;1287:11089;2776:33;;1287:11089;2776:33;;;;;;2768:68;2776:33;1287:11089;2776:33;;;2768:68;;:::i;:::-;-1:-1:-1;;;;;1287:11089:2;4601:30;;;;:69;;1287:11089;;;;;;;4708:37;1287:11089;;;4708:37;1287:11089;;;;;;;;;;4756:47;1287:11089;;;4756:47;1287:11089;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;4601:69;-1:-1:-1;;;;;;1287:11089:2;;4635:35;;4601:69;;2776:33;;;;1287:11089;2776:33;1287:11089;2776:33;;;;;;;:::i;:::-;;;;1287:11089;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;:::o;:::-;;;;-1:-1:-1;;;;;1287:11089:2;;;;;;:::o;:::-;-1:-1:-1;;;;;1287:11089:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;9563:106;;1287:11089;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;:::o;:::-;;;;:::o;:::-;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;308:1:1;;;;:::o;:::-;1287:11089:2;;-1:-1:-1;;;308:1:1;;;;;;;;;;;1287:11089:2;308:1:1;1287:11089:2;;;308:1:1;;;;1287:11089:2;;;;:::o;:::-;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;:::o;:::-;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;-1:-1:-1;;;1287:11089:2;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;:::o;:::-;11857:9;1287:11089;;;;;;11857:9;-1:-1:-1;1287:11089:2;;-1:-1:-1;1287:11089:2;;;-1:-1:-1;1287:11089:2;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.23;\r\n\r\nimport \"../libs/ReentrancyGuard.sol\";\r\n\r\ninterface ITRC20 {\r\n    function balanceOf(address account) external view returns (uint256);\r\n    function transfer(address to, uint256 value) external returns (bool);\r\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\r\n}\r\n\r\ninterface ILoanVaultCoreV3 {\r\n    struct SweepParams {\r\n        address borrower;\r\n        address tokenToBorrow;\r\n        address merchantAddr;\r\n        uint256 depositAmount;\r\n    }\r\n    function sweepCollateral(SweepParams calldata p) external;\r\n    function getVaultBalance(address borrower, address token) external view returns (uint256);\r\n}\r\n\r\ninterface ILiquidityPool {\r\n    function pullFunds(address token, address to, uint256 amount) external;\r\n}\r\n\r\ninterface IBorderlessCreditNFT {\r\n    function getCreditScoreByBorrower(address borrower) external view returns (uint16);\r\n    function getCreditLimitByBorrower(address borrower) external view returns (uint256);\r\n}\r\n\r\ninterface IAccessControl {\r\n    function isAdmin(address user) external view returns (bool);\r\n    function isCreditOfficer(address user) external view returns (bool);\r\n    function isKeeper(address user) external view returns (bool);\r\n}\r\n\r\ncontract LoanManagerV13 is ReentrancyGuard {\r\n   \r\n\r\n    // External contracts\r\n    IAccessControl public accessControl;\r\n    ILiquidityPool public liquidityPool;\r\n    ILoanVaultCoreV3 public vault;\r\n    IBorderlessCreditNFT public creditNFT;\r\n\r\n    // Pause state\r\n    bool public paused;\r\n\r\n    // Fees (bps)\r\n    uint256 public merchantFeeBps = 800;\r\n    uint256 public platformFeeOfTotalBps = 100;\r\n    uint256 public lenderIncomeOfTotalBps = 700;\r\n    address public platformFeeAddress;\r\n    address public lenderPoolIncomeAddress;\r\n\r\n    struct Loan {\r\n        address borrower;\r\n        address token;\r\n        address merchant;\r\n        uint256 principal;\r\n        uint256 outstanding;\r\n        uint256 startedAt;\r\n        uint256 installmentsPaid;\r\n        uint256 fee;\r\n        bool active;\r\n    }\r\n\r\n    mapping(address => Loan) public loans;\r\n    address[] private borrowers; // track loan borrowers\r\n    mapping(address => bool) private hasLoan; // prevent duplicates\r\n\r\n    // Events\r\n    event LoanRequested(address indexed borrower, uint256 requestedAmount);\r\n    event LoanApproved(address indexed borrower, uint256 totalAmount, address indexed token, address indexed merchant, uint256 settleAmount);\r\n    event BorrowerRepayment(address indexed borrower, address indexed token, uint256 amount);\r\n    event LoanRepaid(address indexed borrower);\r\n    event Paused(address indexed by);\r\n    event Unpaused(address indexed by);\r\n\r\n    modifier onlyAdmin() {\r\n        require(accessControl.isAdmin(msg.sender), \"LoanManager: not admin\");\r\n        _;\r\n    }\r\n\r\n    modifier onlyCreditOfficer() {\r\n        require(accessControl.isCreditOfficer(msg.sender), \"LoanManager: not credit officer\");\r\n        _;\r\n    }\r\n\r\n    modifier onlyCreditOfficerOrAdmin() {\r\n        require(accessControl.isCreditOfficer(msg.sender) || accessControl.isAdmin(msg.sender), \"LoanManager: not credit officer or admin\");\r\n        _;\r\n    }\r\n\r\n    \r\n\r\n    modifier whenNotPaused() {\r\n        require(!paused, \"LoanManager: paused\");\r\n        _;\r\n    }\r\n\r\n    constructor(\r\n        address _accessControl,\r\n        address _liquidityPool,\r\n        address _vault,\r\n        address _creditNFT,\r\n        address _platformFeeAddr,\r\n        address _lenderPoolIncomeAddr\r\n    ) {\r\n        require(_accessControl != address(0) && _liquidityPool != address(0) &&\r\n                _vault != address(0) && _creditNFT != address(0) &&\r\n                _platformFeeAddr != address(0) && _lenderPoolIncomeAddr != address(0),\r\n                \"LoanManager: zero address\");\r\n\r\n        accessControl = IAccessControl(_accessControl);\r\n        liquidityPool = ILiquidityPool(_liquidityPool);\r\n        vault = ILoanVaultCoreV3(_vault);\r\n        creditNFT = IBorderlessCreditNFT(_creditNFT);\r\n        platformFeeAddress = _platformFeeAddr;\r\n        lenderPoolIncomeAddress = _lenderPoolIncomeAddr;\r\n        paused = false;\r\n    }\r\n\r\n    // --- Pause functions ---\r\n    function pause() external onlyAdmin {\r\n        paused = true;\r\n        emit Paused(msg.sender);\r\n    }\r\n\r\n    function unpause() external onlyAdmin {\r\n        paused = false;\r\n        emit Unpaused(msg.sender);\r\n    }\r\n\r\n    // --- Admin setters ---\r\n    function setFeeAddresses(address _platformFeeAddr, address _lenderPoolIncomeAddr) external onlyAdmin {\r\n        require(_platformFeeAddr != address(0) && _lenderPoolIncomeAddr != address(0), \"LoanManager: zero addr\");\r\n        platformFeeAddress = _platformFeeAddr;\r\n        lenderPoolIncomeAddress = _lenderPoolIncomeAddr;\r\n    }\r\n\r\n    function setMerchantFeeBps(uint256 _bps) external onlyAdmin {\r\n        require(_bps <= 2000, \"LoanManager: max 20%\");\r\n        merchantFeeBps = _bps;\r\n    }\r\n\r\n    function setPlatformAndLenderFeeSplits(uint256 _platformBps, uint256 _lenderBps) external onlyAdmin {\r\n        require(_platformBps + _lenderBps == merchantFeeBps, \"LoanManager: split mismatch\");\r\n        platformFeeOfTotalBps = _platformBps;\r\n        lenderIncomeOfTotalBps = _lenderBps;\r\n    }\r\n\r\n    // --- Loan request & approval ---\r\n    function requestLoan(address tokenToBorrow, uint256 requestedAmount) external whenNotPaused {\r\n        require(tokenToBorrow != address(0), \"LoanManager: zero token\");\r\n        require(!loans[msg.sender].active, \"LoanManager: one loan at a time\");\r\n\r\n        uint16 score = creditNFT.getCreditScoreByBorrower(msg.sender);\r\n        uint256 nftLimit = creditNFT.getCreditLimitByBorrower(msg.sender);\r\n\r\n        require(score > 0, \"LoanManager: invalid score\");\r\n        require(requestedAmount > 0 && requestedAmount <= nftLimit, \"LoanManager: exceeds credit limit\");\r\n\r\n        uint256 vaultBalance = vault.getVaultBalance(msg.sender, tokenToBorrow);\r\n        uint256 requiredCollateral = (requestedAmount * 34) / 10000;\r\n        require(vaultBalance >= requiredCollateral, \"LoanManager: insufficient collateral\");\r\n        //ITRC20(tokenToBorrow).transferFrom(msg.sender, address(liquidityPool), requiredCollateral);\r\n\r\n        // Low-level TRC20 transferFrom\r\n        /*(bool success, bytes memory data) = tokenToBorrow.call(\r\n            abi.encodeWithSelector(ITRC20(tokenToBorrow).transferFrom.selector, msg.sender, address(this), amount)\r\n        );\r\n        require(success && (data.length == 0 || abi.decode(data, (bool))), \"transfer failed\");\r\n        */\r\n\r\n        emit LoanRequested(msg.sender, requiredCollateral);\r\n    }\r\n\r\n    function approveAndDisburse(\r\n        address borrower,\r\n        address tokenToBorrow,\r\n        uint256 totalAmount,\r\n        uint256 depositAmount,\r\n        uint256 fee,\r\n        address merchantAddr\r\n    ) external onlyCreditOfficerOrAdmin nonReentrant whenNotPaused {\r\n        require(!_isPrivileged(borrower), \"Privileged cannot borrow\");\r\n        require(borrower != address(0) && merchantAddr != address(0), \"Zero addr\");\r\n        require(!loans[borrower].active, \"Existing loan\");\r\n        require(totalAmount > 0, \"Zero amount\");\r\n\r\n        uint16 score = creditNFT.getCreditScoreByBorrower(borrower);\r\n        uint256 nftLimit = creditNFT.getCreditLimitByBorrower(borrower);\r\n        require(score > 0 && totalAmount <= nftLimit, \"Invalid amount\");\r\n\r\n        uint256 vaultBalance = vault.getVaultBalance(borrower, tokenToBorrow);\r\n        require(vaultBalance >= depositAmount, \"Vault: insufficient balance\");\r\n\r\n        uint256 borrowerPart = (totalAmount * 34) / 10000;\r\n        uint256 lenderPart = totalAmount - borrowerPart;\r\n        uint256 merchantSettleAmt = totalAmount - fee - depositAmount;\r\n        uint256 settleAmount = depositAmount + merchantSettleAmt;\r\n\r\n        // Sweep collateral from vault to merchant\r\n        ILoanVaultCoreV3.SweepParams memory p = ILoanVaultCoreV3.SweepParams({\r\n            borrower: borrower,\r\n            tokenToBorrow: tokenToBorrow,\r\n            merchantAddr: merchantAddr,\r\n            depositAmount: depositAmount\r\n        });\r\n        vault.sweepCollateral(p);\r\n\r\n        // Pull lender funds from liquidity pool\r\n        if (lenderPart > 0) {\r\n            liquidityPool.pullFunds(tokenToBorrow, merchantAddr, merchantSettleAmt);\r\n        }\r\n\r\n        // Record loan\r\n        Loan storage L = loans[borrower];\r\n        L.borrower = borrower;\r\n        L.token = tokenToBorrow;\r\n        L.merchant = merchantAddr;\r\n        L.principal = totalAmount;\r\n        L.outstanding = totalAmount - depositAmount;\r\n        L.startedAt = block.timestamp;\r\n        L.installmentsPaid = depositAmount;\r\n        L.fee = fee;\r\n        L.active = true;\r\n\r\n        if (!hasLoan[L.borrower]) {\r\n            hasLoan[L.borrower] = true;\r\n            borrowers.push(L.borrower);\r\n        }\r\n        \r\n\r\n        emit LoanApproved(borrower, totalAmount, tokenToBorrow, merchantAddr,settleAmount);\r\n    }\r\n\r\n    // --- Repayments ---\r\n    function repay(address token, uint256 amount) external nonReentrant whenNotPaused {\r\n        require(amount > 0, \"Zero amount\");\r\n        Loan storage L = loans[msg.sender];\r\n        require(L.active && token == L.token, \"Invalid loan/token\");\r\n\r\n        uint256 payAmount = amount > L.outstanding ? L.outstanding : amount;\r\n        //ITRC20(token).transferFrom(msg.sender, address(liquidityPool), payAmount);\r\n\r\n         // Low-level TRC20 transferFrom\r\n        (bool success, bytes memory data) = token.call(\r\n            abi.encodeWithSelector(ITRC20(token).transferFrom.selector, msg.sender, address(liquidityPool), payAmount)\r\n        );\r\n        require(success && (data.length == 0 || abi.decode(data, (bool))), \"transfer failed\");\r\n\r\n        L.outstanding -= payAmount;\r\n        L.installmentsPaid += payAmount;\r\n        emit BorrowerRepayment(msg.sender, token, payAmount);\r\n\r\n        if (L.outstanding == 0) {\r\n            L.active = false;\r\n            emit LoanRepaid(msg.sender);\r\n        }\r\n    }\r\n\r\n    // --- Keeper/Admin liquidation ---\r\n    function liquidateDue(address borrower, uint256 amountNeeded) external nonReentrant whenNotPaused {\r\n        require(accessControl.isKeeper(msg.sender) || accessControl.isAdmin(msg.sender), \"Unauthorized\");\r\n        Loan storage L = loans[borrower];\r\n        require(L.active, \"No active loan\");\r\n\r\n        if (amountNeeded >= L.outstanding) {\r\n            L.outstanding = 0;\r\n            L.active = false;\r\n            emit LoanRepaid(borrower);\r\n        } else {\r\n            L.outstanding -= amountNeeded;\r\n        }\r\n    }\r\n\r\n    // --- Loan getters ---\r\n    function getLoanDetails(address borrower) external view returns (\r\n        address loanBorrower,\r\n        address token,\r\n        address merchant,\r\n        uint256 principal,\r\n        uint256 outstanding,\r\n        uint256 startedAt,\r\n        uint256 installmentsPaid,\r\n        uint256 fee,\r\n        bool active\r\n    ) {\r\n        Loan memory L = loans[borrower];\r\n        return (L.borrower, L.token, L.merchant, L.principal, L.outstanding, L.startedAt, L.installmentsPaid, L.fee, L.active);\r\n    }\r\n\r\n    function outstandingOf(address borrower) external view returns (uint256) {\r\n        return loans[borrower].outstanding;\r\n    }\r\n\r\n    function _isPrivileged(address user) internal view returns (bool) {\r\n        return accessControl.isAdmin(user) || accessControl.isCreditOfficer(user);\r\n    }\r\n\r\n    /// @notice Aggregate loan statistics (gas heavy if many loans)\r\n    function getLoanStats()\r\n        external\r\n        view\r\n        returns (\r\n            uint256 totalPrincipal,\r\n            uint256 totalOutstanding,\r\n            uint256 totalPaid,\r\n            uint256 totalFees,\r\n            uint256 activeCount,\r\n            uint256 totalCount\r\n        )\r\n    {\r\n        totalCount = borrowers.length;\r\n\r\n        for (uint256 i = 0; i < totalCount; i++) {\r\n            Loan storage L = loans[borrowers[i]];\r\n            totalPrincipal += L.principal;\r\n            totalOutstanding += L.outstanding;\r\n            totalPaid += L.installmentsPaid;\r\n            totalFees += L.fee;\r\n            if (L.active) activeCount++;\r\n        }\r\n    }\r\n\r\n    /// @notice Returns all borrower addresses\r\n    function getAllBorrowers() external view returns (address[] memory) {\r\n        return borrowers;\r\n    }\r\n\r\n\r\n}\r\n",
+  "sourcePath": "C:/workspace/tronbfpay/contracts/v3/LoanManagerV13.sol",
   "ast": {
-    "absolutePath": "/C/workspace/tronbfpay/contracts/v3/LoanManagerV15.sol",
+    "absolutePath": "/C/workspace/tronbfpay/contracts/v3/LoanManagerV13.sol",
     "exportedSymbols": {
       "IAccessControl": [
         333
@@ -64,7 +655,7 @@
       "ITRC20": [
         261
       ],
-      "LoanManagerV15": [
+      "LoanManagerV13": [
         1404
       ],
       "ReentrancyGuard": [
@@ -1387,7 +1978,7 @@
             "src": "1314:15:2"
           }
         ],
-        "canonicalName": "LoanManagerV15",
+        "canonicalName": "LoanManagerV13",
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
@@ -1396,7 +1987,7 @@
           1404,
           230
         ],
-        "name": "LoanManagerV15",
+        "name": "LoanManagerV13",
         "nameLocation": "1296:14:2",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -1771,7 +2362,7 @@
             "visibility": "public"
           },
           {
-            "canonicalName": "LoanManagerV15.Loan",
+            "canonicalName": "LoanManagerV13.Loan",
             "id": 381,
             "members": [
               {
@@ -2042,7 +2633,7 @@
             "storageLocation": "default",
             "typeDescriptions": {
               "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-              "typeString": "mapping(address => struct LoanManagerV15.Loan)"
+              "typeString": "mapping(address => struct LoanManagerV13.Loan)"
             },
             "typeName": {
               "id": 385,
@@ -2062,7 +2653,7 @@
               "src": "2102:24:2",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                "typeString": "mapping(address => struct LoanManagerV15.Loan)"
+                "typeString": "mapping(address => struct LoanManagerV13.Loan)"
               },
               "valueName": "",
               "valueNameLocation": "-1:-1:-1",
@@ -2083,7 +2674,7 @@
                 "src": "2121:4:2",
                 "typeDescriptions": {
                   "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                  "typeString": "struct LoanManagerV15.Loan"
+                  "typeString": "struct LoanManagerV13.Loan"
                 }
               }
             },
@@ -6284,7 +6875,7 @@
                               "src": "5512:5:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                                "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                                "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                               }
                             },
                             "id": 717,
@@ -6323,7 +6914,7 @@
                             "src": "5512:17:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage",
-                              "typeString": "struct LoanManagerV15.Loan storage ref"
+                              "typeString": "struct LoanManagerV13.Loan storage ref"
                             }
                           },
                           "id": 718,
@@ -7913,7 +8504,7 @@
                               "src": "7113:5:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                                "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                                "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                               }
                             },
                             "id": 838,
@@ -7937,7 +8528,7 @@
                             "src": "7113:15:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage",
-                              "typeString": "struct LoanManagerV15.Loan storage ref"
+                              "typeString": "struct LoanManagerV13.Loan storage ref"
                             }
                           },
                           "id": 839,
@@ -9556,7 +10147,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                        "typeString": "struct LoanManagerV15.Loan"
+                        "typeString": "struct LoanManagerV13.Loan"
                       },
                       "typeName": {
                         "id": 953,
@@ -9575,7 +10166,7 @@
                         "src": "8402:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan"
+                          "typeString": "struct LoanManagerV13.Loan"
                         }
                       },
                       "visibility": "internal"
@@ -9592,7 +10183,7 @@
                       "src": "8419:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                        "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                        "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                       }
                     },
                     "id": 957,
@@ -9616,7 +10207,7 @@
                     "src": "8419:15:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Loan_$381_storage",
-                      "typeString": "struct LoanManagerV15.Loan storage ref"
+                      "typeString": "struct LoanManagerV13.Loan storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -9639,7 +10230,7 @@
                         "src": "8445:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 961,
@@ -9698,7 +10289,7 @@
                         "src": "8477:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 967,
@@ -9757,7 +10348,7 @@
                         "src": "8511:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 973,
@@ -9816,7 +10407,7 @@
                         "src": "8547:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 979,
@@ -9875,7 +10466,7 @@
                         "src": "8583:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 985,
@@ -9964,7 +10555,7 @@
                         "src": "8637:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 993,
@@ -10038,7 +10629,7 @@
                         "src": "8677:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1000,
@@ -10097,7 +10688,7 @@
                         "src": "8722:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1006,
@@ -10156,7 +10747,7 @@
                         "src": "8744:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1012,
@@ -10237,7 +10828,7 @@
                           "src": "8785:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                            "typeString": "struct LoanManagerV15.Loan storage pointer"
+                            "typeString": "struct LoanManagerV13.Loan storage pointer"
                           }
                         },
                         "id": 1018,
@@ -10310,7 +10901,7 @@
                                 "src": "8821:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                  "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                  "typeString": "struct LoanManagerV13.Loan storage pointer"
                                 }
                               },
                               "id": 1023,
@@ -10380,7 +10971,7 @@
                                 "src": "8869:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                  "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                  "typeString": "struct LoanManagerV13.Loan storage pointer"
                                 }
                               },
                               "id": 1032,
@@ -10952,7 +11543,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                        "typeString": "struct LoanManagerV15.Loan"
+                        "typeString": "struct LoanManagerV13.Loan"
                       },
                       "typeName": {
                         "id": 1065,
@@ -10971,7 +11562,7 @@
                         "src": "9177:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan"
+                          "typeString": "struct LoanManagerV13.Loan"
                         }
                       },
                       "visibility": "internal"
@@ -10988,7 +11579,7 @@
                       "src": "9194:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                        "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                        "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                       }
                     },
                     "id": 1070,
@@ -11027,7 +11618,7 @@
                     "src": "9194:17:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Loan_$381_storage",
-                      "typeString": "struct LoanManagerV15.Loan storage ref"
+                      "typeString": "struct LoanManagerV13.Loan storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -11056,7 +11647,7 @@
                             "src": "9230:1:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                              "typeString": "struct LoanManagerV15.Loan storage pointer"
+                              "typeString": "struct LoanManagerV13.Loan storage pointer"
                             }
                           },
                           "id": 1074,
@@ -11110,7 +11701,7 @@
                               "src": "9251:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1077,
@@ -11272,7 +11863,7 @@
                           "src": "9323:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                            "typeString": "struct LoanManagerV15.Loan storage pointer"
+                            "typeString": "struct LoanManagerV13.Loan storage pointer"
                           }
                         },
                         "id": 1087,
@@ -11325,7 +11916,7 @@
                         "src": "9339:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1090,
@@ -12020,7 +12611,7 @@
                         "src": "9789:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1138,
@@ -12079,7 +12670,7 @@
                         "src": "9826:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1144,
@@ -12243,7 +12834,7 @@
                         "src": "9937:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1156,
@@ -12310,7 +12901,7 @@
                               "src": "9972:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1161,
@@ -12813,7 +13404,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                        "typeString": "struct LoanManagerV15.Loan"
+                        "typeString": "struct LoanManagerV13.Loan"
                       },
                       "typeName": {
                         "id": 1200,
@@ -12832,7 +13423,7 @@
                         "src": "10314:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan"
+                          "typeString": "struct LoanManagerV13.Loan"
                         }
                       },
                       "visibility": "internal"
@@ -12849,7 +13440,7 @@
                       "src": "10331:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                        "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                        "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                       }
                     },
                     "id": 1204,
@@ -12873,7 +13464,7 @@
                     "src": "10331:15:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Loan_$381_storage",
-                      "typeString": "struct LoanManagerV15.Loan storage ref"
+                      "typeString": "struct LoanManagerV13.Loan storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -12892,7 +13483,7 @@
                           "src": "10365:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                            "typeString": "struct LoanManagerV15.Loan storage pointer"
+                            "typeString": "struct LoanManagerV13.Loan storage pointer"
                           }
                         },
                         "id": 1208,
@@ -13008,7 +13599,7 @@
                         "src": "10425:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1214,
@@ -13054,7 +13645,7 @@
                               "src": "10576:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1235,
@@ -13123,7 +13714,7 @@
                               "src": "10455:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1218,
@@ -13186,7 +13777,7 @@
                               "src": "10487:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1224,
@@ -13430,7 +14021,7 @@
                       "storageLocation": "memory",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                        "typeString": "struct LoanManagerV15.Loan"
+                        "typeString": "struct LoanManagerV13.Loan"
                       },
                       "typeName": {
                         "id": 1266,
@@ -13449,7 +14040,7 @@
                         "src": "10991:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan"
+                          "typeString": "struct LoanManagerV13.Loan"
                         }
                       },
                       "visibility": "internal"
@@ -13466,7 +14057,7 @@
                       "src": "11007:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                        "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                        "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                       }
                     },
                     "id": 1270,
@@ -13490,7 +14081,7 @@
                     "src": "11007:15:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Loan_$381_storage",
-                      "typeString": "struct LoanManagerV15.Loan storage ref"
+                      "typeString": "struct LoanManagerV13.Loan storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -13509,7 +14100,7 @@
                           "src": "11041:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1273,
@@ -13537,7 +14128,7 @@
                           "src": "11053:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1275,
@@ -13565,7 +14156,7 @@
                           "src": "11062:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1277,
@@ -13593,7 +14184,7 @@
                           "src": "11074:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1279,
@@ -13621,7 +14212,7 @@
                           "src": "11087:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1281,
@@ -13649,7 +14240,7 @@
                           "src": "11102:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1283,
@@ -13677,7 +14268,7 @@
                           "src": "11115:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1285,
@@ -13705,7 +14296,7 @@
                           "src": "11135:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1287,
@@ -13733,7 +14324,7 @@
                           "src": "11142:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1289,
@@ -14092,7 +14683,7 @@
                         "src": "11258:5:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                          "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                          "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                         }
                       },
                       "id": 1302,
@@ -14116,7 +14707,7 @@
                       "src": "11258:15:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_storage",
-                        "typeString": "struct LoanManagerV15.Loan storage ref"
+                        "typeString": "struct LoanManagerV13.Loan storage ref"
                       }
                     },
                     "id": 1303,
@@ -14556,7 +15147,7 @@
                             "storageLocation": "storage",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                              "typeString": "struct LoanManagerV15.Loan"
+                              "typeString": "struct LoanManagerV13.Loan"
                             },
                             "typeName": {
                               "id": 1356,
@@ -14575,7 +15166,7 @@
                               "src": "11942:4:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan"
+                                "typeString": "struct LoanManagerV13.Loan"
                               }
                             },
                             "visibility": "internal"
@@ -14592,7 +15183,7 @@
                             "src": "11959:5:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                              "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                              "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                             }
                           },
                           "id": 1362,
@@ -14641,7 +15232,7 @@
                           "src": "11959:19:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_storage",
-                            "typeString": "struct LoanManagerV15.Loan storage ref"
+                            "typeString": "struct LoanManagerV13.Loan storage ref"
                           }
                         },
                         "nodeType": "VariableDeclarationStatement",
@@ -14678,7 +15269,7 @@
                               "src": "12011:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1366,
@@ -14737,7 +15328,7 @@
                               "src": "12057:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1371,
@@ -14796,7 +15387,7 @@
                               "src": "12098:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1376,
@@ -14855,7 +15446,7 @@
                               "src": "12144:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1381,
@@ -14894,7 +15485,7 @@
                             "src": "12168:1:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                              "typeString": "struct LoanManagerV15.Loan storage pointer"
+                              "typeString": "struct LoanManagerV13.Loan storage pointer"
                             }
                           },
                           "id": 1385,
@@ -15392,7 +15983,7 @@
     "src": "33:12345:2"
   },
   "legacyAST": {
-    "absolutePath": "/C/workspace/tronbfpay/contracts/v3/LoanManagerV15.sol",
+    "absolutePath": "/C/workspace/tronbfpay/contracts/v3/LoanManagerV13.sol",
     "exportedSymbols": {
       "IAccessControl": [
         333
@@ -15409,7 +16000,7 @@
       "ITRC20": [
         261
       ],
-      "LoanManagerV15": [
+      "LoanManagerV13": [
         1404
       ],
       "ReentrancyGuard": [
@@ -16732,7 +17323,7 @@
             "src": "1314:15:2"
           }
         ],
-        "canonicalName": "LoanManagerV15",
+        "canonicalName": "LoanManagerV13",
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
@@ -16741,7 +17332,7 @@
           1404,
           230
         ],
-        "name": "LoanManagerV15",
+        "name": "LoanManagerV13",
         "nameLocation": "1296:14:2",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -17116,7 +17707,7 @@
             "visibility": "public"
           },
           {
-            "canonicalName": "LoanManagerV15.Loan",
+            "canonicalName": "LoanManagerV13.Loan",
             "id": 381,
             "members": [
               {
@@ -17387,7 +17978,7 @@
             "storageLocation": "default",
             "typeDescriptions": {
               "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-              "typeString": "mapping(address => struct LoanManagerV15.Loan)"
+              "typeString": "mapping(address => struct LoanManagerV13.Loan)"
             },
             "typeName": {
               "id": 385,
@@ -17407,7 +17998,7 @@
               "src": "2102:24:2",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                "typeString": "mapping(address => struct LoanManagerV15.Loan)"
+                "typeString": "mapping(address => struct LoanManagerV13.Loan)"
               },
               "valueName": "",
               "valueNameLocation": "-1:-1:-1",
@@ -17428,7 +18019,7 @@
                 "src": "2121:4:2",
                 "typeDescriptions": {
                   "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                  "typeString": "struct LoanManagerV15.Loan"
+                  "typeString": "struct LoanManagerV13.Loan"
                 }
               }
             },
@@ -21629,7 +22220,7 @@
                               "src": "5512:5:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                                "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                                "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                               }
                             },
                             "id": 717,
@@ -21668,7 +22259,7 @@
                             "src": "5512:17:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage",
-                              "typeString": "struct LoanManagerV15.Loan storage ref"
+                              "typeString": "struct LoanManagerV13.Loan storage ref"
                             }
                           },
                           "id": 718,
@@ -23258,7 +23849,7 @@
                               "src": "7113:5:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                                "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                                "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                               }
                             },
                             "id": 838,
@@ -23282,7 +23873,7 @@
                             "src": "7113:15:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage",
-                              "typeString": "struct LoanManagerV15.Loan storage ref"
+                              "typeString": "struct LoanManagerV13.Loan storage ref"
                             }
                           },
                           "id": 839,
@@ -24901,7 +25492,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                        "typeString": "struct LoanManagerV15.Loan"
+                        "typeString": "struct LoanManagerV13.Loan"
                       },
                       "typeName": {
                         "id": 953,
@@ -24920,7 +25511,7 @@
                         "src": "8402:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan"
+                          "typeString": "struct LoanManagerV13.Loan"
                         }
                       },
                       "visibility": "internal"
@@ -24937,7 +25528,7 @@
                       "src": "8419:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                        "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                        "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                       }
                     },
                     "id": 957,
@@ -24961,7 +25552,7 @@
                     "src": "8419:15:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Loan_$381_storage",
-                      "typeString": "struct LoanManagerV15.Loan storage ref"
+                      "typeString": "struct LoanManagerV13.Loan storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -24984,7 +25575,7 @@
                         "src": "8445:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 961,
@@ -25043,7 +25634,7 @@
                         "src": "8477:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 967,
@@ -25102,7 +25693,7 @@
                         "src": "8511:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 973,
@@ -25161,7 +25752,7 @@
                         "src": "8547:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 979,
@@ -25220,7 +25811,7 @@
                         "src": "8583:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 985,
@@ -25309,7 +25900,7 @@
                         "src": "8637:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 993,
@@ -25383,7 +25974,7 @@
                         "src": "8677:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1000,
@@ -25442,7 +26033,7 @@
                         "src": "8722:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1006,
@@ -25501,7 +26092,7 @@
                         "src": "8744:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1012,
@@ -25582,7 +26173,7 @@
                           "src": "8785:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                            "typeString": "struct LoanManagerV15.Loan storage pointer"
+                            "typeString": "struct LoanManagerV13.Loan storage pointer"
                           }
                         },
                         "id": 1018,
@@ -25655,7 +26246,7 @@
                                 "src": "8821:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                  "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                  "typeString": "struct LoanManagerV13.Loan storage pointer"
                                 }
                               },
                               "id": 1023,
@@ -25725,7 +26316,7 @@
                                 "src": "8869:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                  "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                  "typeString": "struct LoanManagerV13.Loan storage pointer"
                                 }
                               },
                               "id": 1032,
@@ -26297,7 +26888,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                        "typeString": "struct LoanManagerV15.Loan"
+                        "typeString": "struct LoanManagerV13.Loan"
                       },
                       "typeName": {
                         "id": 1065,
@@ -26316,7 +26907,7 @@
                         "src": "9177:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan"
+                          "typeString": "struct LoanManagerV13.Loan"
                         }
                       },
                       "visibility": "internal"
@@ -26333,7 +26924,7 @@
                       "src": "9194:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                        "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                        "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                       }
                     },
                     "id": 1070,
@@ -26372,7 +26963,7 @@
                     "src": "9194:17:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Loan_$381_storage",
-                      "typeString": "struct LoanManagerV15.Loan storage ref"
+                      "typeString": "struct LoanManagerV13.Loan storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -26401,7 +26992,7 @@
                             "src": "9230:1:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                              "typeString": "struct LoanManagerV15.Loan storage pointer"
+                              "typeString": "struct LoanManagerV13.Loan storage pointer"
                             }
                           },
                           "id": 1074,
@@ -26455,7 +27046,7 @@
                               "src": "9251:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1077,
@@ -26617,7 +27208,7 @@
                           "src": "9323:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                            "typeString": "struct LoanManagerV15.Loan storage pointer"
+                            "typeString": "struct LoanManagerV13.Loan storage pointer"
                           }
                         },
                         "id": 1087,
@@ -26670,7 +27261,7 @@
                         "src": "9339:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1090,
@@ -27365,7 +27956,7 @@
                         "src": "9789:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1138,
@@ -27424,7 +28015,7 @@
                         "src": "9826:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1144,
@@ -27588,7 +28179,7 @@
                         "src": "9937:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1156,
@@ -27655,7 +28246,7 @@
                               "src": "9972:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1161,
@@ -28158,7 +28749,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                        "typeString": "struct LoanManagerV15.Loan"
+                        "typeString": "struct LoanManagerV13.Loan"
                       },
                       "typeName": {
                         "id": 1200,
@@ -28177,7 +28768,7 @@
                         "src": "10314:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan"
+                          "typeString": "struct LoanManagerV13.Loan"
                         }
                       },
                       "visibility": "internal"
@@ -28194,7 +28785,7 @@
                       "src": "10331:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                        "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                        "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                       }
                     },
                     "id": 1204,
@@ -28218,7 +28809,7 @@
                     "src": "10331:15:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Loan_$381_storage",
-                      "typeString": "struct LoanManagerV15.Loan storage ref"
+                      "typeString": "struct LoanManagerV13.Loan storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -28237,7 +28828,7 @@
                           "src": "10365:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                            "typeString": "struct LoanManagerV15.Loan storage pointer"
+                            "typeString": "struct LoanManagerV13.Loan storage pointer"
                           }
                         },
                         "id": 1208,
@@ -28353,7 +28944,7 @@
                         "src": "10425:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan storage pointer"
+                          "typeString": "struct LoanManagerV13.Loan storage pointer"
                         }
                       },
                       "id": 1214,
@@ -28399,7 +28990,7 @@
                               "src": "10576:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1235,
@@ -28468,7 +29059,7 @@
                               "src": "10455:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1218,
@@ -28531,7 +29122,7 @@
                               "src": "10487:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1224,
@@ -28775,7 +29366,7 @@
                       "storageLocation": "memory",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                        "typeString": "struct LoanManagerV15.Loan"
+                        "typeString": "struct LoanManagerV13.Loan"
                       },
                       "typeName": {
                         "id": 1266,
@@ -28794,7 +29385,7 @@
                         "src": "10991:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                          "typeString": "struct LoanManagerV15.Loan"
+                          "typeString": "struct LoanManagerV13.Loan"
                         }
                       },
                       "visibility": "internal"
@@ -28811,7 +29402,7 @@
                       "src": "11007:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                        "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                        "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                       }
                     },
                     "id": 1270,
@@ -28835,7 +29426,7 @@
                     "src": "11007:15:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Loan_$381_storage",
-                      "typeString": "struct LoanManagerV15.Loan storage ref"
+                      "typeString": "struct LoanManagerV13.Loan storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
@@ -28854,7 +29445,7 @@
                           "src": "11041:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1273,
@@ -28882,7 +29473,7 @@
                           "src": "11053:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1275,
@@ -28910,7 +29501,7 @@
                           "src": "11062:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1277,
@@ -28938,7 +29529,7 @@
                           "src": "11074:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1279,
@@ -28966,7 +29557,7 @@
                           "src": "11087:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1281,
@@ -28994,7 +29585,7 @@
                           "src": "11102:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1283,
@@ -29022,7 +29613,7 @@
                           "src": "11115:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1285,
@@ -29050,7 +29641,7 @@
                           "src": "11135:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1287,
@@ -29078,7 +29669,7 @@
                           "src": "11142:1:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_memory_ptr",
-                            "typeString": "struct LoanManagerV15.Loan memory"
+                            "typeString": "struct LoanManagerV13.Loan memory"
                           }
                         },
                         "id": 1289,
@@ -29437,7 +30028,7 @@
                         "src": "11258:5:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                          "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                          "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                         }
                       },
                       "id": 1302,
@@ -29461,7 +30052,7 @@
                       "src": "11258:15:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Loan_$381_storage",
-                        "typeString": "struct LoanManagerV15.Loan storage ref"
+                        "typeString": "struct LoanManagerV13.Loan storage ref"
                       }
                     },
                     "id": 1303,
@@ -29901,7 +30492,7 @@
                             "storageLocation": "storage",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                              "typeString": "struct LoanManagerV15.Loan"
+                              "typeString": "struct LoanManagerV13.Loan"
                             },
                             "typeName": {
                               "id": 1356,
@@ -29920,7 +30511,7 @@
                               "src": "11942:4:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan"
+                                "typeString": "struct LoanManagerV13.Loan"
                               }
                             },
                             "visibility": "internal"
@@ -29937,7 +30528,7 @@
                             "src": "11959:5:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Loan_$381_storage_$",
-                              "typeString": "mapping(address => struct LoanManagerV15.Loan storage ref)"
+                              "typeString": "mapping(address => struct LoanManagerV13.Loan storage ref)"
                             }
                           },
                           "id": 1362,
@@ -29986,7 +30577,7 @@
                           "src": "11959:19:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Loan_$381_storage",
-                            "typeString": "struct LoanManagerV15.Loan storage ref"
+                            "typeString": "struct LoanManagerV13.Loan storage ref"
                           }
                         },
                         "nodeType": "VariableDeclarationStatement",
@@ -30023,7 +30614,7 @@
                               "src": "12011:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1366,
@@ -30082,7 +30673,7 @@
                               "src": "12057:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1371,
@@ -30141,7 +30732,7 @@
                               "src": "12098:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1376,
@@ -30200,7 +30791,7 @@
                               "src": "12144:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                                "typeString": "struct LoanManagerV15.Loan storage pointer"
+                                "typeString": "struct LoanManagerV13.Loan storage pointer"
                               }
                             },
                             "id": 1381,
@@ -30239,7 +30830,7 @@
                             "src": "12168:1:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Loan_$381_storage_ptr",
-                              "typeString": "struct LoanManagerV15.Loan storage pointer"
+                              "typeString": "struct LoanManagerV13.Loan storage pointer"
                             }
                           },
                           "id": 1385,
@@ -30740,7 +31331,14 @@
     "name": "solc",
     "version": "0.8.30+commit.73712a01.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "3": {
+      "events": {},
+      "links": {},
+      "address": "41123388e50a81443da05782a9ae99036b2d4f1bc2",
+      "transactionHash": "2e43fcb10384142c1c16d38c626aedea29f2c7131cdc35ff82f8745295bc1f0d"
+    }
+  },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2025-10-10T20:12:31.021Z"
+  "updatedAt": "2025-10-09T19:28:26.629Z"
 }

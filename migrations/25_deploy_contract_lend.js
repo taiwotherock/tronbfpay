@@ -1,13 +1,16 @@
 const TronWeb = require('tronweb'); // 3.2.7 works with new TronWeb()
 
-const LiquidityPool = artifacts.require("LiquidityPoolV6");
+const VaultLending = artifacts.require("VaultLending");
 
 
 module.exports = async function(deployer) {
     const usdtAddress = process.env.USDT_CONTRACT_ADDRESS;
     const deployerAddress = process.env.PUBLIC_ADDRESS;
-    const creditOfficerAddress = process.env.CREDIT_OFFICER_ADDRESS;
+    
      const accessControlAddress = process.env.ACCESS_CONTROL_CONTRACT_ADDRESS;
+    
+
+    
 
     // TronWeb instance (only needed for address helpers)
     const tronWeb = new TronWeb({
@@ -16,12 +19,15 @@ module.exports = async function(deployer) {
 
     //const deployerAddress = tronWeb.address.fromPrivateKey(deployerPK);
 
+
+     // 1️⃣ LoanVaultCore
+    await deployer.deploy(VaultLending, accessControlAddress);
+    const vaultLending = await VaultLending.deployed();
+    const vaultLendingAddress = tronWeb.address.fromHex(vaultLending.address);
+    console.log("VaultLending deployed (hex):", vaultLending.address);
+    console.log("VaultLending deployed (base58):", vaultLendingAddress);
+
     
-     // 1️⃣ LiquidityPool
-    await deployer.deploy(LiquidityPool, usdtAddress,accessControlAddress);
-    const liquidityPool = await LiquidityPool.deployed();
-    console.log("LiquidityPool deployed (hex):", liquidityPool.address);
-    console.log("LiquidityPool deployed (base58):", tronWeb.address.fromHex(liquidityPool.address));
-   
+     
     console.log("✅ All contracts deployed successfully!");
 };
