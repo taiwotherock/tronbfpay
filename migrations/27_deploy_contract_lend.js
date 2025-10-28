@@ -1,6 +1,6 @@
 const TronWeb = require('tronweb'); // 3.2.7 works with new TronWeb()
 
-const VaultLending = artifacts.require("VaultLending");
+const VaultLending = artifacts.require("VaultLendingV2");
 
 
 module.exports = async function(deployer) {

@@ -29,7 +29,7 @@ sudo npx mocha test/liquidityPool.test.js --exit
 
 tronbox migrate --network nile --reset --verbose-rpc
 
-tronbox migrate  --network nile  --f 25 --to 25 --reset
+tronbox migrate  --network nile  --f 26 --to 27 --reset
 
 npm install solc
 
