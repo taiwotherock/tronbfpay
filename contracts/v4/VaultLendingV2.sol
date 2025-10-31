@@ -167,10 +167,11 @@ contract VaultLendingV2 {
         _;
     }
 
-    modifier onlyAuthorized(address merchant) {
-        require(whitelist[merchant], "User not whitelisted");
-        require(accessControl.isAdmin(merchant), "permission denied");
-        require(accessControl.isCreditOfficer(msg.sender), "permission denied");
+    modifier onlyAuthorized() {
+        
+         require( accessControl.isAdmin(msg.sender) || accessControl.isCreditOfficer(msg.sender)
+        , "permission denied");
+        
          _;
     }
 
@@ -207,9 +208,6 @@ contract VaultLendingV2 {
         _depositContributionPercent = depositContributionPercent;
         emit DepositContributionChanged(depositContributionPercent);
     }
-
-
-
 
     /* ========== VAULT FUNCTIONS ========== */
 
@@ -305,7 +303,7 @@ contract VaultLendingV2 {
         l.token = token;
         l.merchant = merchant;
         l.principal = principal;
-        l.outstanding = principal + fee;
+        l.outstanding = principal ;
         l.startedAt = block.timestamp;
         l.installmentsPaid = 0;
         l.fee = fee;
@@ -379,17 +377,7 @@ contract VaultLendingV2 {
             totalPoolContribution[loan.token] += remaining;
         }
         
-        // Allocate fee portion
-        uint256 feePaid = loan.fee >= amount ? amount : loan.fee;
-        loan.fee -= feePaid;
-        //_addFeeToPool(loan.token, feePaid);
-
-        uint256 principalPaid = amount - feePaid;
-        if (principalPaid >= loan.outstanding) {
-            principalPaid = loan.outstanding - feePaid;
-        }
-
-        loan.outstanding -= (principalPaid + feePaid);
+        loan.outstanding -= amount;
         loan.totalPaid += amount;
 
         if (loan.outstanding == 0) {
@@ -591,10 +579,10 @@ contract VaultLendingV2 {
         return _lenderFee;
     }
 
-    function getMerchantFund(address merchant, address token) external view onlyAuthorized(msg.sender) returns (uint256) {
+    function getMerchantFund(address merchant, address token) external view onlyAuthorized() returns (uint256) {
         return merchantFund[merchant][token];
     }
-    function getTotalMerchantFund(address token) external view onlyAuthorized(msg.sender) returns (uint256)
+    function getTotalMerchantFund(address token) external view onlyAuthorized() returns (uint256)
      { 
         return totalMerchantFund[token];
      }
