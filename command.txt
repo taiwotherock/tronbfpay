@@ -29,7 +29,9 @@ sudo npx mocha test/liquidityPool.test.js --exit
 
 tronbox migrate --network nile --reset --verbose-rpc
 
-tronbox migrate  --network nile  --f 26 --to 27 --reset
+tronbox migrate  --network nile  --f 27 --to 28 --reset
+
+tronbox migrate  --network nile  --f 29 --to 30 --reset
 
 npm install solc
 
@@ -42,5 +44,23 @@ Running migration: 21_deploy_contract.js
     (hex) 41a42488ed4cb8397082fa9819f86484f8fc1dfcde
 LoanManager deployed (hex): 41a42488ed4cb8397082fa9819f86484f8fc1dfcde
 LoanManager deployed (base58): TQw7b1LC51EDYJZsV1No3T5b21piTDQjeH
+✅ All contracts deployed successfully!
+Saving successful migration to network...
+
+
+  Deploying BNPLAttestationOracle...
+  BNPLAttestationOracle:
+    (base58) TGvPFhZNnBBEjuMm7yxLm3aszh5h96VMBS
+    (hex) 414c4030dee1a0f15b1e1835d436a831e28c9b0d18
+VaultLending deployed (hex): 414c4030dee1a0f15b1e1835d436a831e28c9b0d18
+VaultLending deployed (base58): TGvPFhZNnBBEjuMm7yxLm3aszh5h96VMBS
+✅ All contracts deployed successfully!
+
+Deploying VaultLendingV4...
+  VaultLendingV4:
+    (base58) TLBec6DMvwEvroDP5yedhwgvLz4ES5Qc7w
+    (hex) 41700b9f5d530548b0572ed70fe77fe57f04f5fc5a
+VaultLending deployed (hex): 41700b9f5d530548b0572ed70fe77fe57f04f5fc5a
+VaultLending deployed (base58): TLBec6DMvwEvroDP5yedhwgvLz4ES5Qc7w
 ✅ All contracts deployed successfully!
 Saving successful migration to network...

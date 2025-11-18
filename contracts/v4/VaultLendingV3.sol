@@ -15,7 +15,7 @@ interface IAccessControlModule {
 }
 
 
-contract VaultLendingV2 {
+contract VaultLendingV3 {
 
     struct Loan {
         bytes32 ref;
@@ -85,10 +85,12 @@ contract VaultLendingV2 {
     // Events
     event Deposit(address indexed user, address indexed token, uint256 amount);
     event Withdraw(address indexed user, address indexed token, uint256 amount);
-    event LoanCreated(bytes32 loanId, address borrower, uint256 principal, uint256 fee,
-    uint256 depositAmount,uint256 lenderFundDeducted, uint256 merchantSettledFund);
+    
+    event LoanCreated(bytes32 ref, address borrower, uint256 principal, uint256 fee, 
+    uint256 depositAmount, uint256 lenderFundDeducted, uint256 merchantSettledFund);
+
     event LoanDisbursed(bytes32 loanId, address borrower, uint256 amount);
-    event LoanRepaid(bytes32 loanId, address borrower, uint256 amount, uint256 feePaid);
+    event LoanRepaid(bytes32 ref, address borrower, uint256 amount);
     event LoanClosed(bytes32 loanId, address borrower);
     event FeesWithdrawn(address indexed lender, address indexed token, uint256 amount);
 
@@ -216,7 +218,7 @@ contract VaultLendingV2 {
         ITRC20(token).transferFrom(msg.sender, address(this), amount);
 
         // Update lender fee debt before increasing contribution
-        feeDebt[msg.sender][token] += (amount * cumulativeFeePerToken[token]) / FEE_PRECISION;
+        //feeDebt[msg.sender][token] += (amount * cumulativeFeePerToken[token]) / FEE_PRECISION;
 
         vault[msg.sender][token] += amount;
         lenderContribution[msg.sender][token] += amount;
@@ -303,7 +305,7 @@ contract VaultLendingV2 {
         l.token = token;
         l.merchant = merchant;
         l.principal = principal;
-        l.outstanding = principal ;
+        l.outstanding = principal - depositAmount ;
         l.startedAt = block.timestamp;
         l.installmentsPaid = 0;
         l.fee = fee;
@@ -325,11 +327,11 @@ contract VaultLendingV2 {
         //vault[msg.sender][token] += principal;
         vault[borrower][token] -= depositAmount;
         lenderContribution[borrower][token] -= depositAmount;
+        
         //totalPoolContribution[token] -= depositAmount
 
-        emit LoanCreated(ref, borrower, principal, fee,depositAmount,lenderFundDeducted,merchantSettledFund);
-        
-        //emit LoanDisbursed(ref, msg.sender, principal);
+       emit LoanCreated(ref, borrower, principal, fee,depositAmount,lenderFundDeducted,merchantSettledFund);
+      
     }
 
     function withdrawMerchantFund(address token) external 
@@ -358,25 +360,12 @@ contract VaultLendingV2 {
         require(loan.active, "Loan is closed");
         require(loan.borrower == msg.sender, "Not borrower");
         require(amount > 0, "Amount must be > 0");
+        require(loan.outstanding > 0, "Outstanding must be > 0");
 
         uint256 remaining = amount;
 
-        // Use vault balance first
-        uint256 vaultBalance = vault[msg.sender][loan.token];
-        if (vaultBalance > 0) {
-            uint256 fromVault = vaultBalance >= remaining ? remaining : vaultBalance;
-            //vault[msg.sender][loan.token] -= fromVault;
-            remaining -= fromVault;
-        }
-
-        // Use external transfer if needed
-        if (remaining > 0) {
-            ITRC20(loan.token).transferFrom(msg.sender, address(this), remaining);
-            vault[msg.sender][loan.token] += remaining;
-            pool[loan.token] += remaining;
-            totalPoolContribution[loan.token] += remaining;
-        }
-        
+        ITRC20(loan.token).transferFrom(msg.sender, address(this), remaining);
+        pool[loan.token] += remaining;
         loan.outstanding -= amount;
         loan.totalPaid += amount;
 
@@ -386,7 +375,7 @@ contract VaultLendingV2 {
             emit LoanClosed(ref, msg.sender);
         }
 
-        emit LoanRepaid(ref, msg.sender, principalPaid + feePaid, feePaid);
+        emit LoanRepaid(ref, msg.sender, amount);
     }
 
     /*function _addFeeToPool(address token, uint256 feeAmount) internal {
@@ -420,7 +409,7 @@ contract VaultLendingV2 {
     }
 
     function withdrawFees(address token) external 
-    whenNotPaused notBlacklisted(msg.sender) onlyWhitelisted(msg.sender) {
+    whenNotPaused notBlacklisted(msg.sender) onlyAdmin {
         uint256 amount = getWithdrawableFees(msg.sender, token);
         require(amount > 0, "No fees to withdraw");
 
@@ -586,4 +575,31 @@ contract VaultLendingV2 {
      { 
         return totalMerchantFund[token];
      }
+
+     function getLoanData(bytes32 ref)
+        external
+        view
+        returns (
+            address borrower,
+            address merchant,
+            uint256 principal,
+            uint256 outstanding,
+            uint256 totalPaid
+        )
+    {
+        Loan storage l = loans[ref];
+        borrower = l.borrower;
+        merchant = l.merchant;
+        principal = l.principal;
+        outstanding = l.outstanding;
+        totalPaid = l.totalPaid;
+    }
+
+    function getVaultBalance(address borrower, address token) external view returns (uint256) {
+        return vault[borrower][token];
+    }
+
+    function isWhitelisted(address user) external view returns (bool) {
+        return whitelist[user];
+    }
 }

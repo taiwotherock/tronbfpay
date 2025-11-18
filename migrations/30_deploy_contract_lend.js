@@ -1,11 +1,13 @@
 const TronWeb = require('tronweb'); // 3.2.7 works with new TronWeb()
 
-const VaultLending = artifacts.require("VaultLendingV2");
+const VaultLending = artifacts.require("VaultLendingV4");
 
 
 module.exports = async function(deployer) {
     const usdtAddress = process.env.USDT_CONTRACT_ADDRESS;
     const deployerAddress = process.env.PUBLIC_ADDRESS;
+    const attestationAddress = process.env.ATTESTATION_ADDRESS;
+    const treasuryAddress = process.env.PLATFORM_FEE_ADDRESS;
     
      const accessControlAddress = process.env.ACCESS_CONTROL_CONTRACT_ADDRESS;
     
@@ -21,7 +23,10 @@ module.exports = async function(deployer) {
 
 
      // 1️⃣ LoanVaultCore
-    await deployer.deploy(VaultLending, accessControlAddress);
+  
+    await deployer.deploy(VaultLending, accessControlAddress, usdtAddress,treasuryAddress,attestationAddress,
+        "UBNPL","BNPL Liquidity Pool"
+    );
     const vaultLending = await VaultLending.deployed();
     const vaultLendingAddress = tronWeb.address.fromHex(vaultLending.address);
     console.log("VaultLending deployed (hex):", vaultLending.address);
