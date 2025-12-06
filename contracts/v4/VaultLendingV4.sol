@@ -59,7 +59,7 @@ contract VaultLendingV4 {
     }
 
    // ====== Loan Struct ======
-    enum LoanStatus { None, Active, Closed, Defaulted, WrittenOff }
+    enum LoanStatus { None, Active, Paid, Closed, Defaulted, WrittenOff }
    
     string public name;
     string public symbol;
@@ -145,7 +145,7 @@ contract VaultLendingV4 {
     event Unpaused();
     event Whitelisted(address indexed user, bool status);
     event Blacklisted(address indexed user, bool status);
-    event FeeRateChanged(uint256 platformFeeRate, uint256 lenderFeeRate);
+    event FeeRateChanged(uint256 platformFeeRate, uint256 lenderFeeRate, uint256 reserveRateBP);
     event DepositContributionChanged(uint256 depositContributionPercent);
     event MerchantWithdrawn(address indexed merchant, address indexed token, uint256 amount);
   
@@ -257,11 +257,12 @@ contract VaultLendingV4 {
         emit Unpaused();
     }
 
-    function setFeeRate(uint256 platformFeeRate, uint256 lenderFeeRate,uint256 ) external onlyAdmin {
+    function setFeeRate(uint256 platformFeeRate, uint256 lenderFeeRate,uint256 _reserveRateBP ) external onlyAdmin {
         require(platformFeeRate + lenderFeeRate <= 1e6, "Invalid fee setup");
         _platformFeeRate = platformFeeRate;
         _lenderFeeRate = lenderFeeRate;
-        emit FeeRateChanged(platformFeeRate, lenderFeeRate);
+        reserveRateBP = _reserveRateBP;
+        emit FeeRateChanged(platformFeeRate, lenderFeeRate,reserveRateBP);
     }
 
     function setDepositContributionPercent(uint256 depositContributionPercent) external onlyAdmin {
@@ -822,4 +823,53 @@ contract VaultLendingV4 {
     function isWhitelisted(address user) external view returns (bool) {
         return whitelist[user];
     }
+
+    function isCreditOfficer(address user) external view returns (bool) {
+        return accessControl.isCreditOfficer(user);
+    }
+
+    function isAdmin(address user) external view returns (bool) {
+        return accessControl.isAdmin(user);
+    }
+
+    function getLoanData(bytes32 ref)
+        external
+        view
+        returns (
+            address borrower,
+            address merchant,
+            uint256 principal,
+            uint256 outstanding,
+            uint256 totalPaid,
+            uint256 maturityDate,
+            string memory status
+
+        )
+    {
+        Loan storage l = loans[ref];
+        borrower = l.borrower;
+        merchant = l.merchant;
+        principal = l.principal;
+        outstanding = l.outstanding;
+        totalPaid = l.totalPaid;
+        maturityDate = l.maturityDate;
+        status = _loanStatusToString(l.status);
+    }
+
+    function _loanStatusToString(LoanStatus s)
+    internal
+    pure
+    returns (string memory)
+    {
+        
+        if (s == LoanStatus.Active) return "Active";
+        if (s == LoanStatus.Paid) return "Paid";
+        if (s == LoanStatus.Defaulted) return "Defaulted";
+        if (s == LoanStatus.WrittenOff) return "WrittenOff";
+        return "Unknown";
+    }
+
+    function getLoan(bytes32 ref) external view returns (Loan memory) {
+        return loans[ref];
+     }
 }
