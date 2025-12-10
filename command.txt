@@ -33,7 +33,7 @@ tronbox migrate  --network nile  --f 27 --to 28 --reset
 
 tronbox migrate  --network nile  --f 29 --to 30 --reset
 
-tronbox migrate  --network nile  --f 30 --to 31 --reset
+tronbox migrate  --network nile  --f 31 --to 32 --reset
 
 npm install solc
 
@@ -85,6 +85,29 @@ Running migration: 31_deploy_contract_od.js
     (hex) 41570eb85b6b6989a92fa6c443990a51fab8394e10
 VaultLending deployed (hex): 41570eb85b6b6989a92fa6c443990a51fab8394e10
 VaultLending deployed (base58): THuXRXDkPaSjVwxkxzwQbCnwiikbQpLTKn
+✅ All contracts deployed successfully!
+Saving successful migration to network...
+Saving artifacts...
+
+
+
+Running migration: 31_deploy_contract_od.js
+  Replacing OverdraftLineVault...
+  OverdraftLineVault:
+    (base58) TSY7vWKx53dwuab18aC5maXVW5zmJfFT3q
+    (hex) 41b5bb7ffde16862890b95f17b33e51342389be88d
+VaultLending deployed (hex): 41b5bb7ffde16862890b95f17b33e51342389be88d
+VaultLending deployed (base58): TSY7vWKx53dwuab18aC5maXVW5zmJfFT3q
+✅ All contracts deployed successfully!
+Saving successful migration to network...
+Saving artifacts...
+Running migration: 32_deploy_contract_stable.js
+  Deploying StableCoinCore...
+  StableCoinCore:
+    (base58) TZ9NmrpEPMXtoPHcvBAwug6ax8dMR71AaK
+    (hex) 41fe3735d34322baacab67fdac09ab1564dab0fd4a
+VaultLending deployed (hex): 41fe3735d34322baacab67fdac09ab1564dab0fd4a
+VaultLending deployed (base58): TZ9NmrpEPMXtoPHcvBAwug6ax8dMR71AaK
 ✅ All contracts deployed successfully!
 Saving successful migration to network...
 Saving artifacts...

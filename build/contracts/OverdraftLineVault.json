@@ -58505,10 +58505,10 @@
     "3": {
       "events": {},
       "links": {},
-      "address": "41570eb85b6b6989a92fa6c443990a51fab8394e10",
-      "transactionHash": "0fb67b9f678099d5d1aca2f2e4bd0704d1e94de53f48c7d1f86fa7ecb16ce6ff"
+      "address": "41b5bb7ffde16862890b95f17b33e51342389be88d",
+      "transactionHash": "a7bc38bd6445495ceafa83268c4161b7ad98a22bcc4e7e17ef75d6aef01deddc"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2025-12-05T23:17:45.717Z"
+  "updatedAt": "2025-12-10T22:41:13.042Z"
 }
