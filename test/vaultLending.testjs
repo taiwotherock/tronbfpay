@@ -1,0 +1,66 @@
+const VaultLendingV5 = artifacts.require("VaultLendingV5");
+const TRC20Mock = artifacts.require("TRC20Mock"); // simple ERC20 mock
+
+contract("VaultLendingV5", accounts => {
+    const [admin, user1] = accounts;
+
+    let token, vault;
+
+    beforeEach(async () => {
+        // Deploy mock TRC20 token
+        token = await TRC20Mock.new("Test Token", "TT", 6, 1000000 * 1e6);
+
+        // Deploy VaultLendingV5
+        vault = await VaultLendingV5.new(
+            admin,            // accessControl
+            token.address,    // depositToken
+            admin,            // platformTreasury
+            admin,            // attestationOracle
+            "Vault Test",     // name
+            "VLT"             // symbol
+        );
+
+        // Give user1 some tokens
+        await token.transfer(user1, 1000 * 1e6);
+
+        // Approve vault to spend user1 tokens
+        await token.approve(vault.address, 1000 * 1e6, {from: user1});
+    });
+
+    it("should deposit correctly and update accounting", async () => {
+        const depositAmount = 500 * 1e6;
+
+        // Deposit
+        const tx = await vault.deposit(depositAmount, {from: user1});
+
+        // Check events
+        const event = tx.logs.find(e => e.event === "Deposit");
+        assert(event, "Deposit event emitted");
+
+        // Check vault balance
+        const vaultBalance = await vault.getVaultBalance(user1, token.address);
+        assert.equal(vaultBalance.toString(), depositAmount.toString(), "Vault balance incorrect");
+
+        // Check LP shares
+        const shares = await vault.balanceOf(user1);
+        assert(shares.gt(0), "Shares not minted");
+
+        // Check total supply
+        const totalSupply = await vault.totalSupply();
+        assert.equal(totalSupply.toString(), shares.toString(), "Total supply incorrect");
+
+        // Check poolCash
+        const poolCash = await vault.poolCash();
+        assert.equal(poolCash.toString(), depositAmount.toString(), "Pool cash incorrect");
+    });
+
+    it("should update fee rates correctly", async () => {
+        await vault.setFeeRate(20000, 10000, 500, {from: admin}); // 2%,1%,5% reserve
+
+        const platformFeeRate = await vault.getPlatformFeeRate();
+        const lenderFeeRate = await vault.getLenderFeeRate();
+
+        assert.equal(platformFeeRate.toString(), "20000", "Platform fee rate incorrect");
+        assert.equal(lenderFeeRate.toString(), "10000", "Lender fee rate incorrect");
+    });
+});

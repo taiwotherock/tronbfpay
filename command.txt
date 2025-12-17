@@ -26,6 +26,8 @@ npx tronbox compile
 Run test
 sudo npx mocha test/liquidityPool.test.js --exit
 
+tronbox test test/vaultLending.test.js
+
 
 tronbox migrate --network nile --reset --verbose-rpc
 
@@ -33,7 +35,9 @@ tronbox migrate  --network nile  --f 27 --to 28 --reset
 
 tronbox migrate  --network nile  --f 29 --to 30 --reset
 
-tronbox migrate  --network nile  --f 31 --to 32 --reset
+tronbox migrate  --network nile  --f 32 --to 33 --reset
+
+tronbox migrate  --network nile  --f 33 --to 34 --reset
 
 npm install solc
 
@@ -108,6 +112,35 @@ Running migration: 32_deploy_contract_stable.js
     (hex) 41fe3735d34322baacab67fdac09ab1564dab0fd4a
 VaultLending deployed (hex): 41fe3735d34322baacab67fdac09ab1564dab0fd4a
 VaultLending deployed (base58): TZ9NmrpEPMXtoPHcvBAwug6ax8dMR71AaK
+✅ All contracts deployed successfully!
+Saving successful migration to network...
+Saving artifacts...
+
+33_deploy_contract_lend.js
+  Deploying VaultLendingV5...
+  VaultLendingV5:
+    (base58) TD1JPfSmSW1emvUNkUBfCmekSfDCjmxdZP
+    (hex) 41214db559a992974ba983fedd4a6bfd9fb0eab3b0
+VaultLending deployed (hex): 41214db559a992974ba983fedd4a6bfd9fb0eab3b0
+VaultLending deployed (base58): TD1JPfSmSW1emvUNkUBfCmekSfDCjmxdZP
+
+Running migration: 33_deploy_contract_lend.js
+  Replacing VaultLendingV5...
+  VaultLendingV5:
+    (base58) TXwaLYRtgJguL3YhbQ18oCxd4RP8t8x1dr
+    (hex) 41f103bee325ed572b7b5db3152abddb290f3adc7a
+VaultLending deployed (hex): 41f103bee325ed572b7b5db3152abddb290f3adc7a
+VaultLending deployed (base58): TXwaLYRtgJguL3YhbQ18oCxd4RP8t8x1dr
+✅ All contracts deployed successfully!
+Saving successful migration to network...
+Saving artifacts...
+Running migration: 34_deploy_contract_lend.js
+  Deploying VaultLendingV6...
+  VaultLendingV6:
+    (base58) TS5bAhqD3fivUejAVnyGDu3wdzAvKbYtYg
+    (hex) 41b0b7030622f6abf661157624152134818e7a6d5e
+VaultLending deployed (hex): 41b0b7030622f6abf661157624152134818e7a6d5e
+VaultLending deployed (base58): TS5bAhqD3fivUejAVnyGDu3wdzAvKbYtYg
 ✅ All contracts deployed successfully!
 Saving successful migration to network...
 Saving artifacts...

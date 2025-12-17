@@ -70,7 +70,7 @@ contract VaultLendingV4 {
     ITRC20 public depositToken;
     
 
-    uint256 private nextLoanId = 1;
+  
     IAccessControlModule public immutable accessControl;
     IBNPLAttestationOracle public attestationOracle;
     bool public paused;
@@ -88,10 +88,9 @@ contract VaultLendingV4 {
     uint256 public totalPrincipalOutstanding;
 
     uint256 public reserveBalance;      // reserve for bad debt (wei)
-    uint256 public totalDistributableEarnings; // earnings available (interest minus reserve cuts), included in poolCash
+    
      // platform treasury where platform fees will be sent on withdraw
     address public platformTreasury;
-    uint256 private loanCounter = 0;
     uint256 private totalDisbursedToMerchant = 0;
     uint256 private _minCreditScore = 80;
   
@@ -106,6 +105,7 @@ contract VaultLendingV4 {
     mapping(bytes32 => Loan) public loans;
     mapping(address => bytes32[]) private borrowerLoans;
     mapping(bytes32 => uint256) private loanIndex;
+    mapping(bytes32 => uint256) private borrowerLoanIndex;
     //mapping(bytes32 => uint256) internal loanIndex;
     bytes32[] public loanRefs;
 
@@ -116,7 +116,7 @@ contract VaultLendingV4 {
     mapping(address => mapping(address => uint256)) public merchantFund; 
     mapping(address => uint256) private totalMerchantFund;
      
-    uint256 constant FEE_PRECISION = 1e6;
+    //uint256 constant FEE_PRECISION = 1e6;
 
     // Borrower & lender tracking
     mapping(address => bool) private isBorrower;
@@ -215,12 +215,12 @@ contract VaultLendingV4 {
         _;
     }
 
-    modifier nonReentrantLoan(bytes32 ref) {
+    /*modifier nonReentrantLoan(bytes32 ref) {
         require(!_loanLock[ref], "ReentrancyGuard: loan locked");
         _loanLock[ref] = true;
         _;
         _loanLock[ref] = false;
-    }
+    }*/
 
     modifier onlyActiveLoan(bytes32 ref) {
         require(loans[ref].status == LoanStatus.Active, "Loan not active");
@@ -258,7 +258,8 @@ contract VaultLendingV4 {
     }
 
     function setFeeRate(uint256 platformFeeRate, uint256 lenderFeeRate,uint256 _reserveRateBP ) external onlyAdmin {
-        require(platformFeeRate + lenderFeeRate <= 1e6, "Invalid fee setup");
+        require(platformFeeRate + lenderFeeRate <= BP_DIVISOR, "lender and platform fee > 100%");
+        require(_reserveRateBP <= BP_DIVISOR, "fee > 100%");
         _platformFeeRate = platformFeeRate;
         _lenderFeeRate = lenderFeeRate;
         reserveRateBP = _reserveRateBP;
@@ -331,8 +332,8 @@ contract VaultLendingV4 {
     function deposit(uint256 amount) external returns (uint256 sharesMinted) {
         require(amount > 0, "Amount must be > 0");
         
-        depositToken.transferFrom(msg.sender, address(this), amount);
-        //require(depositToken.transferFrom(msg.sender, address(this), amount), "transfer failed");
+        //depositToken.transferFrom(msg.sender, address(this), amount);
+        require(depositToken.transferFrom(msg.sender, address(this), amount), "transfer failed");
 
         uint256 shares = _getShareForAsset(amount);
         _mint(msg.sender, shares);
@@ -360,13 +361,12 @@ contract VaultLendingV4 {
         //address token = depositToken;
         //uint256 sharesToBurn = balanceOf[from];
         require(sharesToBurn > 0, "zero shares");
-        require(sharesToBurn >= balanceOf[msg.sender] , "Insufficient share");
+        require(sharesToBurn <= balanceOf[msg.sender], "Insufficient share");
         
         //require(vault[msg.sender][token] >= amount, "Insufficient vault balance");
         require(_getTotalOutstanding(msg.sender) == 0, "has outstanding loan");
 
-        uint256 totalAssets = _nav();
-                
+                      
         //require(sharesToBurn <= balanceOf[msg.sender], "insufficient shares");
 
         //assets = (share * totalAsset)/totalSupply of shares
@@ -397,7 +397,7 @@ contract VaultLendingV4 {
         emit Withdraw(msg.sender, token, amount);
     }
 
-    function _safeTransfer(ITRC20 token, address to, uint256 value) internal {
+    /*function _safeTransfer(ITRC20 token, address to, uint256 value) internal {
         (bool success, bytes memory data) =
             address(token).call(abi.encodeWithSelector(token.transfer.selector, to, value));
         require(success && (data.length == 0 || abi.decode(data, (bool))), "SafeTransfer: failed");
@@ -407,14 +407,16 @@ contract VaultLendingV4 {
         (bool success, bytes memory data) =
             address(token).call(abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
         require(success && (data.length == 0 || abi.decode(data, (bool))), "SafeTransferFrom: failed");
-    }
+    }*/
 
     /* ========== LOAN FUNCTIONS ========== */
 
     function createLoan(bytes32 ref, address merchant, uint256 principal,
      uint256 fee, uint256 depositAmount, address borrower,uint256 maturitySeconds)
-     external onlyCreditOfficer {
+     external onlyCreditOfficer whenNotPaused nonReentrant {
 
+        
+        require(loans[ref].ref == bytes32(0), "Duplicate loan ref"); 
         require(poolCash >= principal, "insufficient pool cash");
         require(whitelist[borrower], "Borrower not whitelisted");
         require(whitelist[merchant], "Merchant not whitelisted");
@@ -482,15 +484,20 @@ contract VaultLendingV4 {
         _lenderFee += lenderFeeEarn; //lender fee earned
         merchantFund[merchant][token] += merchantSettledFund;
         totalMerchantFund[token] += merchantSettledFund;
-        poolCash -= principal; // merchantSettledFund;
+        //poolCash -= principal; // merchantSettledFund;
 
         // Disburse principal to borrower vault
         //vault[msg.sender][token] += principal;
         vault[borrower][token] -= depositAmount;
-        lenderContribution[borrower][token] -= depositAmount;
-
-        loanRefs.push(ref);
-        loanIndex[ref] = loanRefs.length - 1;
+        //lenderContribution[borrower][token] -= depositAmount;
+        borrowerLoans[borrower].push(ref);
+        borrowerLoanIndex[ref] = borrowerLoans[borrower].length - 1;
+        
+        attestationOracle.increaseUsedCredit(borrower, principal);
+        if (!isBorrower[borrower]) {
+            borrowers.push(borrower);
+            isBorrower[borrower] = true;
+        }      
         totalPrincipalOutstanding += (principal - depositAmount);
         _burn(borrower, shareSpent);
         
@@ -511,6 +518,7 @@ contract VaultLendingV4 {
         merchantFund[merchant][token] = 0;
         totalMerchantFund[token] -= available;
         totalDisbursedToMerchant += available;
+        poolCash -= available;
        
         // Execute safe TRC20 transfer
         ITRC20 tokenA = ITRC20(token);
@@ -518,17 +526,18 @@ contract VaultLendingV4 {
                 abi.encodeWithSelector(tokenA.transfer.selector, merchant, available)
          );
         require(success, "Token transfer failed");
-        poolCash -= available;
+    
 
         emit MerchantWithdrawn(merchant, token, available);
     }
 
     function repayLoan(bytes32 ref, uint256 amount, address borrower) external nonReentrant  {
         Loan storage loan = loans[ref];
-        require(loan.status == LoanStatus.Closed, "Loan is closed");
+        require(loan.status == LoanStatus.Active, "Loan not active");
         require(loan.borrower == borrower, "Not borrower address");
         require(amount > 0, "Amount must be > 0");
         require(loan.outstanding > 0, "Outstanding must be > 0");
+        require(amount <= loan.outstanding, "Exceeds outstanding");
 
         uint256 remaining = amount;
         ITRC20(loan.token).transferFrom(msg.sender, address(this), remaining);
@@ -538,7 +547,6 @@ contract VaultLendingV4 {
         uint256 lenderFee = (amount * _lenderFeeRate) / 1e6;
         uint256 netAmount = amount - platformFee - lenderFee;
 
-        attestationOracle.decreaseUsedCredit(loan.borrower, amount);
 
         _platformFee += platformFee;
         _lenderFee += lenderFee;
@@ -548,7 +556,8 @@ contract VaultLendingV4 {
         loan.outstanding -= amount;
         loan.totalPaid += amount;
         loan.repaidFee += platformFee + lenderFee;
-        totalPrincipalOutstanding -= amount;
+        loan.lastPaymentTs = block.timestamp;
+        attestationOracle.decreaseUsedCredit(loan.borrower, amount);
 
         if (loan.outstanding == 0) {
             loan.status = LoanStatus.Closed;
@@ -560,16 +569,16 @@ contract VaultLendingV4 {
     }
 
     function _removeLoanFromBorrower(address borrower, bytes32 ref) internal {
-        uint256 index = loanIndex[ref];
+        uint256 index = borrowerLoanIndex[ref];
         bytes32 lastRef = borrowerLoans[borrower][borrowerLoans[borrower].length - 1];
 
         // Replace the removed ref with the last one
         borrowerLoans[borrower][index] = lastRef;
-        loanIndex[lastRef] = index;
+        borrowerLoanIndex[lastRef] = index;
 
         // Remove last element and delete index mapping
         borrowerLoans[borrower].pop();
-        delete loanIndex[ref];
+        delete borrowerLoanIndex[ref];
     }
 
     /* ========== FEE WITHDRAWAL ========== */
@@ -651,20 +660,7 @@ contract VaultLendingV4 {
     }
 
 
-    function _removeLoanFromBorrower(bytes32 ref) internal {
-        uint256 index = loanIndex[ref];
-        uint256 lastIndex = loanRefs.length - 1;
-
-        if (index != lastIndex) {
-            bytes32 lastRef = loanRefs[lastIndex];
-            loanRefs[index] = lastRef;
-            loanIndex[lastRef] = index;
-        }
-
-        loanRefs.pop();
-        delete loanIndex[ref];
-        }
-
+    
     /* ========== VIEW FUNCTIONS ========== */
 
     function getBorrowerStats(address borrower, address token) 
@@ -864,6 +860,7 @@ contract VaultLendingV4 {
         
         if (s == LoanStatus.Active) return "Active";
         if (s == LoanStatus.Paid) return "Paid";
+        if (s == LoanStatus.Closed) return "Closed";
         if (s == LoanStatus.Defaulted) return "Defaulted";
         if (s == LoanStatus.WrittenOff) return "WrittenOff";
         return "Unknown";
